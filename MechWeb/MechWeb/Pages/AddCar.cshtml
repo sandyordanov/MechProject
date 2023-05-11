@@ -1,0 +1,36 @@
+﻿@page
+@model MechWeb.Pages.AddCarModel
+@{
+}
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Add Car</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Make">Make</label>
+                    <input type="text" asp-for="Model.Make" class="form-control" />
+                    <span asp-validation-for="Model.Make" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Model">Model</label>
+                    <input type="password" asp-for="Model.Model" class="form-control" />
+                    <span asp-validation-for="Model.Model" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Year">Year</label>
+                    <input type="password" asp-for="Model.Year" class="form-control" />
+                    <span asp-validation-for="Model.Year" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Model.Mileage">Mileage</label>
+                    <input type="password" asp-for="Model.Mileage" class="form-control" />
+                    <span asp-validation-for="Model.Mileage" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

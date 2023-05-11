@@ -1,0 +1,37 @@
+﻿@page
+@model MechWeb.Pages.SpDetailsModel
+@{
+}
+<h1>SPDetails</h1>
+
+<<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <form method="post">
+                <div class="mb-3">
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.Name">Service Point Name</label>
+                        <input type="text" asp-for="Model.Name" class="form-control" />
+                        <span asp-validation-for="Model.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.Adress">Adress</label>
+                        <input type="text" asp-for="Model.Adress" class="form-control" />
+                        <span asp-validation-for="Model.Adress" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.Phone">Phone Number</label>
+                        <input type="text" asp-for="Model.Phone" class="form-control" />
+                        <span asp-validation-for="Model.Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

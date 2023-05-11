@@ -1,0 +1,36 @@
+﻿@page
+@model MechWeb.Pages.MechanicDetailsModel
+@{
+}
+<h1>MechanicDetails</h1>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <form method="post">
+                <div class="mb-3">
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.FirstName">FirstName</label>
+                        <input type="text" asp-for="Model.FirstName" class="form-control" />
+                        <span asp-validation-for="Model.FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.LastName">LastName</label>
+                        <input type="text" asp-for="Model.LastName" class="form-control" />
+                        <span asp-validation-for="Model.LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Model.MechLevel">Mech Level</label>
+                        <input type="text" asp-for="Model.MechLevel" class="form-control" />
+                        <span asp-validation-for="Model.MechLevel" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
