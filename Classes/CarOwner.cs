@@ -8,11 +8,25 @@ namespace Classes
 {
     public class CarOwner
     {
-        private int _id;
-        private string _firstName;
-        private string _lastName;
-        private string _email;
-        private string _password;
+        public CarOwner()
+        {
+            
+        }
+        public CarOwner(int id, string fullName, string email, string password)
+        {
+            Id = id;
+            FullName = fullName;
+            Email = email;
+            Password  = password;
+        }
+        public int Id { get; set; }
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
+        public void ChangePassword(string newPassword)
+        {
+
+        }
     }
 }

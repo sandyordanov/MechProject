@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Classes;
+using DataLibrary;
+using LogicLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,12 +15,19 @@ namespace CarApp.UserControls
 {
     public partial class SP_ViewRequests : UserControl
     {
-        public SP_ViewRequests()
+        RepairRequestManagement requestManager;
+        public SP_ViewRequests(IUserDbController userDbController, ICarDbController carDbController, IRepairRequestDbController repairRequestDbController)
         {
             InitializeComponent();
+            requestManager = new RepairRequestManagement(userDbController, carDbController, repairRequestDbController);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SP_ViewRequests_Load(object sender, EventArgs e)
         {
 
         }

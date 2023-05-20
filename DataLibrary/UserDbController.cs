@@ -12,15 +12,68 @@ using BCrypt.Net;
 
 namespace DataLibrary
 {
-    public class UserDbController
+    public class UserDbController : IUserDbController
     {
         private readonly string _connectionString;
 
         public UserDbController()
         {
-            _connectionString = GetConnection.Get;
+            _connectionString = DbConnectionString.Get;
         }
 
+        public bool RegisterUser(string email, string password)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("INSERT INTO Users (Password, Email) VALUES (@Password, @Email)", connection);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Email", email);
+                return command.ExecuteNonQuery() == 1;
+            }
+        }
+        public bool RegisterMechanic(string username, string password, string email)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)", connection);
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Email", email);
+                return command.ExecuteNonQuery() == 1;
+            }
+        }
+        public bool RegisterServicePoint(string username, string password, string email)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand("INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)", connection);
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Email", email);
+                return command.ExecuteNonQuery() == 1;
+            }
+        }
+
+        public bool ValidateUser(string username, string password)
+        {
+            bool result = false;
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", con);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Password", password);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
         public async Task<bool> RegisterUserAsync(Register input)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -170,6 +223,11 @@ namespace DataLibrary
             }
 
             return list;
+        }
+
+        public User GetUserById(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

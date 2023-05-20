@@ -15,7 +15,7 @@ namespace DataLibrary
 
         public MechanicDBController()
         {
-            _connectionString = GetConnection.Get;
+            _connectionString = DbConnectionString.Get;
         }
 
         public void InsertDetails(MechanicDetails input)

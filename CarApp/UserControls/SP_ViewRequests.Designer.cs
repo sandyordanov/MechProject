@@ -30,18 +30,20 @@
         {
             listBox1 = new ListBox();
             groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
-            label1 = new Label();
-            tbFullName = new TextBox();
+            label3 = new Label();
+            label2 = new Label();
             tbEmail = new TextBox();
+            tbFullName = new TextBox();
+            groupBox2 = new GroupBox();
+            tbMileage = new TextBox();
+            label8 = new Label();
+            tbYear = new TextBox();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
             tbMake = new TextBox();
             tbModel = new TextBox();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            tbYear = new TextBox();
+            label1 = new Label();
             btnAccept = new Button();
             btnDeny = new Button();
             btnSelect = new Button();
@@ -55,8 +57,6 @@
             cbOil = new CheckBox();
             richTextBox1 = new RichTextBox();
             label7 = new Label();
-            label8 = new Label();
-            tbMileage = new TextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox4.SuspendLayout();
@@ -84,6 +84,44 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "User Information";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(6, 65);
+            label3.Name = "label3";
+            label3.Size = new Size(54, 20);
+            label3.TabIndex = 6;
+            label3.Text = "Email:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.Location = new Point(6, 23);
+            label2.Name = "label2";
+            label2.Size = new Size(84, 20);
+            label2.TabIndex = 5;
+            label2.Text = "Full name:";
+            // 
+            // tbEmail
+            // 
+            tbEmail.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            tbEmail.Location = new Point(96, 62);
+            tbEmail.Name = "tbEmail";
+            tbEmail.ReadOnly = true;
+            tbEmail.Size = new Size(209, 28);
+            tbEmail.TabIndex = 4;
+            // 
+            // tbFullName
+            // 
+            tbFullName.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            tbFullName.Location = new Point(96, 23);
+            tbFullName.Name = "tbFullName";
+            tbFullName.ReadOnly = true;
+            tbFullName.Size = new Size(209, 28);
+            tbFullName.TabIndex = 3;
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(tbMileage);
@@ -101,32 +139,63 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Car information";
             // 
-            // label1
+            // tbMileage
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(15, 14);
-            label1.Name = "label1";
-            label1.Size = new Size(114, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Repair requests:";
+            tbMileage.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            tbMileage.Location = new Point(96, 136);
+            tbMileage.Name = "tbMileage";
+            tbMileage.ReadOnly = true;
+            tbMileage.Size = new Size(158, 28);
+            tbMileage.TabIndex = 10;
             // 
-            // tbFullName
+            // label8
             // 
-            tbFullName.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            tbFullName.Location = new Point(96, 23);
-            tbFullName.Name = "tbFullName";
-            tbFullName.ReadOnly = true;
-            tbFullName.Size = new Size(209, 28);
-            tbFullName.TabIndex = 3;
+            label8.AutoSize = true;
+            label8.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(21, 139);
+            label8.Name = "label8";
+            label8.Size = new Size(69, 20);
+            label8.TabIndex = 9;
+            label8.Text = "Mileage:";
             // 
-            // tbEmail
+            // tbYear
             // 
-            tbEmail.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            tbEmail.Location = new Point(96, 62);
-            tbEmail.Name = "tbEmail";
-            tbEmail.ReadOnly = true;
-            tbEmail.Size = new Size(209, 28);
-            tbEmail.TabIndex = 4;
+            tbYear.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            tbYear.Location = new Point(167, 102);
+            tbYear.Name = "tbYear";
+            tbYear.ReadOnly = true;
+            tbYear.Size = new Size(125, 28);
+            tbYear.TabIndex = 9;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(16, 105);
+            label6.Name = "label6";
+            label6.Size = new Size(148, 20);
+            label6.TabIndex = 3;
+            label6.Text = "Year of production:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(16, 71);
+            label5.Name = "label5";
+            label5.Size = new Size(59, 20);
+            label5.TabIndex = 8;
+            label5.Text = "Model:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(16, 37);
+            label4.Name = "label4";
+            label4.Size = new Size(54, 20);
+            label4.TabIndex = 7;
+            label4.Text = "Make:";
             // 
             // tbMake
             // 
@@ -146,64 +215,14 @@
             tbModel.Size = new Size(211, 28);
             tbModel.TabIndex = 6;
             // 
-            // label2
+            // label1
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(6, 23);
-            label2.Name = "label2";
-            label2.Size = new Size(84, 20);
-            label2.TabIndex = 5;
-            label2.Text = "Full name:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(6, 65);
-            label3.Name = "label3";
-            label3.Size = new Size(54, 20);
-            label3.TabIndex = 6;
-            label3.Text = "Email:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(16, 37);
-            label4.Name = "label4";
-            label4.Size = new Size(54, 20);
-            label4.TabIndex = 7;
-            label4.Text = "Make:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(16, 71);
-            label5.Name = "label5";
-            label5.Size = new Size(59, 20);
-            label5.TabIndex = 8;
-            label5.Text = "Model:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(16, 105);
-            label6.Name = "label6";
-            label6.Size = new Size(148, 20);
-            label6.TabIndex = 3;
-            label6.Text = "Year of production:";
-            // 
-            // tbYear
-            // 
-            tbYear.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            tbYear.Location = new Point(167, 102);
-            tbYear.Name = "tbYear";
-            tbYear.ReadOnly = true;
-            tbYear.Size = new Size(125, 28);
-            tbYear.TabIndex = 9;
+            label1.AutoSize = true;
+            label1.Location = new Point(15, 14);
+            label1.Name = "label1";
+            label1.Size = new Size(114, 20);
+            label1.TabIndex = 2;
+            label1.Text = "Repair requests:";
             // 
             // btnAccept
             // 
@@ -343,25 +362,6 @@
             label7.TabIndex = 8;
             label7.Text = "Message:";
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(21, 139);
-            label8.Name = "label8";
-            label8.Size = new Size(69, 20);
-            label8.TabIndex = 9;
-            label8.Text = "Mileage:";
-            // 
-            // tbMileage
-            // 
-            tbMileage.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            tbMileage.Location = new Point(96, 136);
-            tbMileage.Name = "tbMileage";
-            tbMileage.ReadOnly = true;
-            tbMileage.Size = new Size(158, 28);
-            tbMileage.TabIndex = 10;
-            // 
             // SP_ViewRequests
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -378,6 +378,7 @@
             Controls.Add(listBox1);
             Name = "SP_ViewRequests";
             Size = new Size(1010, 558);
+            Load += SP_ViewRequests_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);

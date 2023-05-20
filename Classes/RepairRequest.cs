@@ -8,16 +8,15 @@ namespace Classes
 {
     public class RepairRequest
     {
-        private int _id;
-        private string _description;
-        private Car _car;
-        private CarOwner _owner;
-        private List<Maintenance> maintenancesRequired = new List<Maintenance>();
-        private List<Repair> _fixesMade = new List<Repair>();
+        public int Id { get; set; }
+        public int OwnerId { get; set; }
+        public int ServicePointId { get; set; }
+        public int OptionsId { get; set; }
+        public int MechanicId { get; set; }
+        public string Description { get; set; }
+        public bool IsAccepted { get; set; }
+        public List<Options> Options { get; set; }
 
-        private void AddFix(Repair repair)
-        {
-            _fixesMade.Add(repair);
-        }
+        
     }
 }

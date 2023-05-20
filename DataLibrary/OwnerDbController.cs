@@ -1,4 +1,5 @@
 ﻿
+using Classes;
 using Classes.Models;
 using Microsoft.Data.SqlClient;
 using System;
@@ -9,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace DataLibrary
 {
-    public class OwnerDbController
+    public class OwnerDbController : IOwnerDbController
     {
         private readonly string _connectionString;
 
         public OwnerDbController()
         {
-            _connectionString = GetConnection.Get;
+            _connectionString = DbConnectionString.Get;
         }
 
         public void InsertDetails(SpDetails input)
@@ -57,6 +58,16 @@ namespace DataLibrary
             }
 
             return id;
+        }
+
+        public void RegisterOwner(CarOwner owner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CarOwner GetOwner()
+        {
+            throw new NotImplementedException();
         }
     }
 }

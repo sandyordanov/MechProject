@@ -10,7 +10,7 @@ namespace DataLibrary
 {
     public class ValidateLogin
     {
-        private readonly string connectionString = DatabaseConnection.ConnectionString;
+        private readonly string connectionString = DbConnectionString.Get;
 
         public bool Login(string username, string password)
         {

@@ -7,6 +7,12 @@ namespace MechWeb.Pages
 {
     public class RegisterServicePointModel : PageModel
     {
+        IServicePointDbController _spDbCon;
+        public RegisterServicePointModel(IServicePointDbController spDbCon)
+        {
+            _spDbCon = spDbCon;
+        }
+        
         [BindProperty]
         public string Name { get; set; }
 
@@ -25,7 +31,7 @@ namespace MechWeb.Pages
         public string Password { get; set; }
         public void OnGet()
         {
-            ServicePointManagement manger = new ServicePointManagement();
+            ServicePointManagement manger = new ServicePointManagement(_spDbCon);
             manger.RegisterServicePoint(Name, Address,Phone,Email, Password);
             // and redirect the user to a confirmation page.
         }
