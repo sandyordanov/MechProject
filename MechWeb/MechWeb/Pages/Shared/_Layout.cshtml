@@ -23,12 +23,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                     </ul>
-                    @if (Context.Request.Cookies.TryGetValue("UserId", out string value))
+                    @if (Context.Request.Cookies.TryGetValue("userId", out string value))
                     {
                         <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
                             <li class="nav-item m-1">
                                 <form method="get" action="/Shared/Logout" class="form-inline">
-                                    <button type="submit" class="btn btn-link nav-link">Logout</button>
+                                    <a class="btn btn-light nav-link" asp-page="/Logout">Logout</a>
                                 </form>
                             </li>
                         </ul>
