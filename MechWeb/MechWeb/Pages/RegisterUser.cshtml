@@ -1,0 +1,44 @@
+﻿@page
+@model MechWeb.Pages.RegisterUserModel
+@{
+    ViewData["Title"] = "Create an account";
+
+}
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    }
+<h1>@ViewData["Title"]</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form method="post">
+                <div class="form-group">
+                    <label class="control-label" asp-for="BindModel.Username"></label>
+                    <input type="text" asp-for="BindModel.Username" class="form-control" />
+                    <span asp-validation-for="BindModel.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="BindModel.Password"></label>
+                    <input type="password" asp-for="BindModel.Password" class="form-control" />
+                    <span asp-validation-for="BindModel.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="BindModel.FirstName"></label>
+                    <input type="text" asp-for="BindModel.FirstName" class="form-control" />
+                    <span asp-validation-for="BindModel.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="BindModel.LastName"></label>
+                    <input type="text" asp-for="BindModel.LastName" class="form-control" />
+                    <span asp-validation-for="BindModel.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="BindModel.Email"></label>
+                    <input type="text" asp-for="BindModel.Email" class="form-control" />
+                    <span asp-validation-for="BindModel.Email" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>

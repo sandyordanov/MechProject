@@ -21,213 +21,89 @@ namespace DataLibrary
             _connectionString = DbConnectionString.Get;
         }
 
-        public bool RegisterUser(string email, string password)
+        public bool RegisterUser(UserBindModel model)
         {
+            int success;
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                var command = new SqlCommand("INSERT INTO Users (Password, Email) VALUES (@Password, @Email)", connection);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Email", email);
-                return command.ExecuteNonQuery() == 1;
-            }
-        }
-        public bool RegisterMechanic(string username, string password, string email)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                var command = new SqlCommand("INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)", connection);
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Email", email);
-                return command.ExecuteNonQuery() == 1;
-            }
-        }
-        public bool RegisterServicePoint(string username, string password, string email)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                var command = new SqlCommand("INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)", connection);
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Email", email);
-                return command.ExecuteNonQuery() == 1;
-            }
-        }
-
-        public bool ValidateUser(string username, string password)
-        {
-            bool result = false;
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE Username = @Username AND Password = @Password", con);
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", password);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                string query = "INSERT INTO Users (FirstName, LastName, Email, Username, Password) VALUES (@firstName, @lastName, @email, @username, @password)";
+                using (var command = new SqlCommand(query, connection))
                 {
-                    result = true;
+                    command.Parameters.AddWithValue("firstName", model.FirstName);
+                    command.Parameters.AddWithValue("lastName", model.LastName);
+                    command.Parameters.AddWithValue("email", model.Email);
+                    command.Parameters.AddWithValue("username", model.Username);
+                    command.Parameters.AddWithValue("password", BCrypt.Net.BCrypt.HashPassword(model.Password));
+                    success = command.ExecuteNonQuery();
                 }
             }
-            return result;
-        }
-        public async Task<bool> RegisterUserAsync(Register input)
-        {
-            using (var connection = new SqlConnection(_connectionString))
+            if (success == 0)
             {
-                connection.Open();
-
-                using (var transaction = connection.BeginTransaction())
-                {
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.Transaction = transaction;
-                        command.CommandText = "INSERT INTO Users (Email, Password, UserType) VALUES (@Email, @Password, @UserType)";
-                        command.Parameters.AddWithValue("@Email", input.Email);
-                        command.Parameters.AddWithValue("@Password", BCrypt.Net.BCrypt.HashPassword(input.Password));
-                        command.Parameters.AddWithValue("@UserType", input.Role.ToString());
-
-                        await command.ExecuteNonQueryAsync();
-                    }
-
-                    transaction.Commit();
-                    return true;
-                }
-
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
-        public User GetUserByEmail(string Email)
+
+        public UserBindModel GetUserByUsername(string username)
         {
-            User user = null;
-
+            UserBindModel user = null;
             using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT Id, Email, Password, UserType FROM Users WHERE Email = @Email";
-                command.Parameters.AddWithValue("@Email", Email);
-
                 connection.Open();
-
-                using (var reader = command.ExecuteReader())
+                string query = "SELECT Id, FirstName, LastName, Email, Password FROM Users WHERE Username = @username";
+                using (var command = new SqlCommand(query, connection))
                 {
-                    if (reader.Read())
+                    command.Parameters.AddWithValue("@username", username);
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        user = new User
+                        while (reader.Read())
                         {
-                            Id = reader.GetInt32(0),
-                            Email = reader.GetString(1),
-                            Password = reader.GetString(2),
-                            Role = reader.GetString(3),
-                        };
+                            user = new UserBindModel()
+                            {
+                                Id = reader.GetInt32(0),
+                                FirstName = reader.GetString(1),
+                                LastName = reader.GetString(2),
+                                Email = reader.GetString(3),
+                                Password = reader.GetString(4),
+                            };
+                        }
                     }
                 }
             }
-
             return user;
-        }
-        public void InsertAuthToken(int userId, string token)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = "INSERT INTO AuthTokens (UserId, Token) VALUES (@UserId, @Token)";
-                    command.Parameters.AddWithValue("@UserId", userId);
-                    command.Parameters.AddWithValue("@Token", token);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void DeleteAuthToken(int userId)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "DELETE FROM AuthTokens WHERE UserId = @UserId";
-                command.Parameters.AddWithValue("@UserId", userId);
-
-                connection.Open();
-
-                command.ExecuteNonQuery();
-            }
-        }
-
-
-        public bool IsAuthTokenValid(int userId, string authToken)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "SELECT COUNT(*) FROM AuthTokens WHERE UserId = @UserId AND Token = @Token";
-                command.Parameters.AddWithValue("@UserId", userId);
-                command.Parameters.AddWithValue("@Token", authToken);
-
-                connection.Open();
-
-                int count = (int)command.ExecuteScalar();
-
-                return count == 1;
-            }
-        }
-        public void CreateCar(AddCar input)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "INSERT INTO Cars (Make, Model, Year, Mileage, OwnerId) VALUES (@Make, @Model, @Year ,@Mileage, @OwnerId)";
-                command.Parameters.AddWithValue("@Make", input.Make);
-                command.Parameters.AddWithValue("@Model", input.Model);
-                command.Parameters.AddWithValue("@Year", input.Year);
-                command.Parameters.AddWithValue("@Mileage", input.Mileage);
-                command.Parameters.AddWithValue("@OwnerId", input.OwnerId);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
-        public List<Car> GetCars(int Id)
-        {
-            Car car = null;
-            List<Car> list = new List<Car>();
-
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "SELECT Make, Model, Year, Mileage FROM Cars WHERE ownerId = @Id";
-                command.Parameters.AddWithValue("@Id", Id);
-
-                connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        car = new Car
-                        {
-                            Make = reader.GetString(0),
-                            Model = reader.GetString(1),
-                            Year = reader.GetInt32(2),
-                            Mileage = reader.GetInt32(3),
-                        };
-                        list.Add(car);
-                    }
-                }
-            }
-
-            return list;
         }
 
         public User GetUserById(int userId)
         {
-            throw new NotImplementedException();
+            User user = null;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT FirstName, LastName, Email FROM Users WHERE Id = @id";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", userId);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            user = new User()
+                            {
+                                FirstName = reader.GetString(0),
+                                LastName = reader.GetString(1),
+                                Email = reader.GetString(2)
+                            };
+                        }
+                    }
+                }
+            }
+            return user;
         }
+
+
     }
 }

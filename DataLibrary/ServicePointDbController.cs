@@ -1,4 +1,5 @@
-﻿using Classes.Models;
+﻿using BCrypt.Net;
+using Classes.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -18,29 +19,42 @@ namespace DataLibrary
             dBConnection = DbConnectionString.Get;
         }
 
+        public bool RegisterServicePoint(ServicePointBindModel model)
+        {
+            int success;
+            using (var connection = new SqlConnection(dBConnection))
+            {     
+                connection.Open();
+                string query = "INSERT INTO ServicePoints (Username, Password, Name, Address, Email, PhoneNumber) VALUES(@username, @password, @name, @address, @email, @phoneNumber)";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("username", model.Username);
+                    command.Parameters.AddWithValue("password",BCrypt.Net.BCrypt.HashPassword(model.Password));
+                    command.Parameters.AddWithValue("name", model.Name);
+                    command.Parameters.AddWithValue("address", model.Address);
+                    command.Parameters.AddWithValue("email", model.Email);
+                    command.Parameters.AddWithValue("phoneNumber", model.PhoneNumber);
+                    success = command.ExecuteNonQuery();
+                }
+            }
+            if (success == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public List<ServicePoint> GetAllServicePoints()
         {
             throw new NotImplementedException();
         }
 
-        public void InsertDetails(SpDetails input)
+        public void InsertDetails(ServicePointBindModel input)
         {
             throw new NotImplementedException();
-        }
-
-        public bool RegisterServicePoint(string name, string adress, string phone, string email, string password)
-        {
-            using (var connection = new SqlConnection(dBConnection))
-            {
-                // connection.Open();
-                var command = new SqlCommand("INSERT INTO ServicePoints (Name, Password, Email, Adress, Phone) VALUES (@Name, @Password, @Email, @Adress, @Phone)", connection);
-                command.Parameters.AddWithValue("@Name", name);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@Adress", adress);
-                command.Parameters.AddWithValue("@Phone", phone);
-                return command.ExecuteNonQuery() == 1;
-            }
         }
     }
 }

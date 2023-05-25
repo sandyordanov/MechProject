@@ -10,14 +10,14 @@ namespace LogicLibrary
 {
     public class RepairRequestManagement
     {
-        private List<RepairRequest> repairRequests;
+        private List<RequestInfo> repairRequests;
         private readonly IUserDbController _userController;
         private readonly ICarDbController _carController;
         private readonly IRepairRequestDbController _repairController;
 
         public RepairRequestManagement(IUserDbController userDbCon, ICarDbController carDbCon, IRepairRequestDbController repairDbCon)
         {
-            repairRequests = new List<RepairRequest>();
+            repairRequests = new List<RequestInfo>();
             _userController = userDbCon;
             _carController = carDbCon;
             _repairController = repairDbCon;
@@ -33,9 +33,10 @@ namespace LogicLibrary
             return _carController.GetCarById(userId);
         }
 
-        public List<RepairRequest> GetRepairRequests()
+        public List<RequestInfo> GetRepairRequests()
         {
-            repairRequests = _repairController.GetAllRequests();
+            int id = 0;
+            repairRequests = _repairController.GetAllRequests(id);
             return repairRequests;
         }
         

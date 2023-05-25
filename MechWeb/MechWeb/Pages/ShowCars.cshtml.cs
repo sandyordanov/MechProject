@@ -7,14 +7,14 @@ namespace MechWeb.Pages
 {
     public class ShowCarsModel : PageModel
     {
-        UserDbController dbController = new UserDbController();
-        public ShowCars CarList = new ShowCars();
+        ICarDbController dbController = new CarDbController();
+        public CarBindModel CarList = new CarBindModel();
 
         public IActionResult OnGet()
         {
             int id = Convert.ToInt32(Request.Cookies["UserId"]);
             var list = dbController.GetCars(id);
-            CarList.Addcars(list);
+            CarList.AddCars(list);
             return Page();
         }
     }

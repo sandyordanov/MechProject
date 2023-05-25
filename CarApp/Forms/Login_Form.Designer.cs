@@ -33,6 +33,8 @@
             label2 = new Label();
             tbUsername = new TextBox();
             tbPassword = new TextBox();
+            btnService = new Button();
+            btnMech = new Button();
             SuspendLayout();
             // 
             // btnLogin
@@ -77,11 +79,35 @@
             tbPassword.Size = new Size(125, 27);
             tbPassword.TabIndex = 4;
             // 
+            // btnService
+            // 
+            btnService.FlatStyle = FlatStyle.Flat;
+            btnService.Location = new Point(0, 0);
+            btnService.Name = "btnService";
+            btnService.Size = new Size(120, 130);
+            btnService.TabIndex = 5;
+            btnService.Text = "Admin";
+            btnService.UseVisualStyleBackColor = true;
+            btnService.Click += btnService_Click;
+            // 
+            // btnMech
+            // 
+            btnMech.FlatStyle = FlatStyle.Flat;
+            btnMech.Location = new Point(119, 0);
+            btnMech.Name = "btnMech";
+            btnMech.Size = new Size(120, 130);
+            btnMech.TabIndex = 6;
+            btnMech.Text = "Mechanic";
+            btnMech.UseVisualStyleBackColor = true;
+            btnMech.Click += btnMech_Click;
+            // 
             // Login_Form
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(241, 129);
+            Controls.Add(btnMech);
+            Controls.Add(btnService);
             Controls.Add(tbPassword);
             Controls.Add(tbUsername);
             Controls.Add(label2);
@@ -89,6 +115,7 @@
             Controls.Add(btnLogin);
             Name = "Login_Form";
             Text = "Login_Form";
+            Load += Login_Form_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -100,5 +127,7 @@
         private Label label2;
         private TextBox tbUsername;
         private TextBox tbPassword;
+        private Button btnService;
+        private Button btnMech;
     }
 }

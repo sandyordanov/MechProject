@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Classes;
+﻿using Classes;
 using DataLibrary;
-using LogicLibrary;
 
 namespace CarApp.Forms
 {
     public partial class Login_Form : Form
     {
+        string userType = "";
         PasswordValidatior passwordValidator = new PasswordValidatior();
         public Login_Form()
         {
@@ -27,17 +18,17 @@ namespace CarApp.Forms
             string email = tbUsername.Text;
             string password = tbPassword.Text;
 
-            var userOrNull = passwordValidator.ValidateCredentials(email, password);
-            if (userOrNull != null)
+            var userOrNull = passwordValidator.ValidateCredentials(email, password, userType);
+            if (userOrNull != 0)
             {
-                switch (userOrNull.position)
+                switch (userType)
                 {
-                    case UserType.ServicePoint:
+                    case "admin":
                         var adminForm = new ServicePoint_Form(userOrNull);
                         adminForm.Closed += (s, args) => this.Close();
                         adminForm.Show();
                         break;
-                    case UserType.Mechanic:
+                    case "mechanic":
                         var hrForm = new Mechanic_Form(userOrNull);
                         hrForm.Closed += (s, args) => this.Close();
                         hrForm.Show();
@@ -51,6 +42,25 @@ namespace CarApp.Forms
                 tbUsername.Text = "";
                 tbPassword.Text = "";
             }
+        }
+
+        private void Login_Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnService_Click(object sender, EventArgs e)
+        {
+            btnService.Visible = false;
+            btnMech.Visible = false;
+            userType = "admin";
+        }
+
+        private void btnMech_Click(object sender, EventArgs e)
+        {
+            btnService.Visible = false;
+            btnMech.Visible = false;
+            userType = "mechanic";
         }
     }
 }

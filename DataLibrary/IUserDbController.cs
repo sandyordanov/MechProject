@@ -1,4 +1,5 @@
 ﻿using Classes;
+using Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace DataLibrary
 {
     public interface IUserDbController
     {
+        bool RegisterUser(UserBindModel model);
+        UserBindModel GetUserByUsername(string username);
         User GetUserById(int userId);
+        
     }
 }

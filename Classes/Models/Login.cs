@@ -5,10 +5,12 @@ namespace Classes.Models
     public class Login
     {
         [Required]
+        [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         [Required]
+        [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
         public string Password { get; set; }
 

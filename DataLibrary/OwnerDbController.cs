@@ -19,22 +19,6 @@ namespace DataLibrary
             _connectionString = DbConnectionString.Get;
         }
 
-        public void InsertDetails(SpDetails input)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "INSERT INTO ServicePoints (UserId, Name, Adress, Phone) VALUES (@Id, @Name, @Adress, @Phone)";
-                command.Parameters.AddWithValue("@Id", input.Id);
-                command.Parameters.AddWithValue("@Name", input.Name);
-                command.Parameters.AddWithValue("@Adress", input.Adress);
-                command.Parameters.AddWithValue("@Phone", input.Phone);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-        }
         public int GetId(string Email)
         {
             int id = 0;
@@ -60,12 +44,12 @@ namespace DataLibrary
             return id;
         }
 
-        public void RegisterOwner(CarOwner owner)
+        public void RegisterOwner(User owner)
         {
             throw new NotImplementedException();
         }
 
-        public CarOwner GetOwner()
+        public User GetOwner()
         {
             throw new NotImplementedException();
         }

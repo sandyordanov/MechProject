@@ -9,14 +9,17 @@ namespace Classes
     public class RepairRequest
     {
         public int Id { get; set; }
-        public int OwnerId { get; set; }
-        public int ServicePointId { get; set; }
-        public int OptionsId { get; set; }
-        public int MechanicId { get; set; }
-        public string Description { get; set; }
+        public Car Car { get; set; }
+        public User User { get; set; }
+        public RepairDetails RepairDetails { get; set; }
         public bool IsAccepted { get; set; }
-        public List<Options> Options { get; set; }
 
-        
+        public RepairRequest(int id, Car car, User user, RepairDetails details)
+        {
+            Id = id;
+            Car = car;
+            User = user;
+            RepairDetails = details;
+        }
     }
 }

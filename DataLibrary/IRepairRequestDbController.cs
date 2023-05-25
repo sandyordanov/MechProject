@@ -9,6 +9,6 @@ namespace DataLibrary
 {
     public interface IRepairRequestDbController
     {
-        List<RepairRequest> GetAllRequests();
+        List<RequestInfo> GetAllRequests(int servicePointId);
     }
 }

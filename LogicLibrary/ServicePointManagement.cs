@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Numerics;
+using Classes.Models;
 using Microsoft.Data.SqlClient;
 
 namespace DataLibrary
@@ -12,9 +13,9 @@ namespace DataLibrary
         {
             _servicePointDbController = servicePointDbCon;
         }
-        public void RegisterServicePoint(string name,string address,string phone,string email,string password)
+        public bool RegisterServicePoint(ServicePointBindModel model)
         {
-            _servicePointDbController.RegisterServicePoint(name,address,phone,email,password);
+           return _servicePointDbController.RegisterServicePoint(model);
         }
         public List<ServicePoint> GetAllServices()
         {

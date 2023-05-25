@@ -1,4 +1,5 @@
 ﻿using Classes;
+using Classes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace DataLibrary
 {
     public interface ICarDbController
     {
+        void CreateCar(CarBindModel model);
         Car GetCarById(int userId);
         List<Car> GetCars(int userId);
     }

@@ -4,22 +4,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Classes;
+using Microsoft.Data.SqlClient;
 
 namespace DataLibrary
 {
     public class PasswordValidatior
     {
-        private static User admin = new User("jeff", "1234", UserType.ServicePoint);
-        private static User employee = new User("chef", "1234", UserType.Mechanic);
-        private List<User> users = new List<User> { admin, employee };
+        private string _connectionString = DbConnectionString.Get;
 
-        public User? ValidateCredentials(string email, string password)
+        public int ValidateCredentials(string username, string password, string userType)
         {
-            foreach (var user in users)
+            int loggedUserId;
+            string query = "";
+            if (userType == "admin")
             {
-                if (user.Email == email && user.Password == password) { return user; }
+                query = "SELECT Id FROM ServicePoints WHERE Username = @username AND Password = @password";
             }
-            return null;
+            if (userType == "mechanic")
+            {
+                query = "SELECT Id FROM Mechanics WHERE Username = @username AND Password = @password";
+            }
+            if (query != null)
+            {
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("username", username);
+                        command.Parameters.AddWithValue("password", password);
+                        using(SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                loggedUserId = reader.GetInt32(0);
+                                return loggedUserId;
+                            }
+                            else
+                            {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+            return 0;
         }
     }
 }

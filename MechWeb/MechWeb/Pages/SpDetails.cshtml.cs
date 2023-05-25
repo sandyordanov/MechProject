@@ -9,7 +9,7 @@ namespace MechWeb.Pages
     {
         public static OwnerDbController _controller = new OwnerDbController();
         [BindProperty]
-        public SpDetails Model { get; set; }
+        public ServicePointBindModel Model { get; set; }
         
         public void OnGet()
         {
@@ -22,8 +22,6 @@ namespace MechWeb.Pages
             {
                 return Page();
             }
-            Model.Id = Convert.ToInt32(Request.Cookies["UserId"]);
-            _controller.InsertDetails(Model);
             return RedirectToPage("/Index");
         }
     }

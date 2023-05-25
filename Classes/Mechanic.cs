@@ -8,6 +8,10 @@ namespace Classes
 {
     public class Mechanic
     {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public MechLevel MechLevel { get; set; }
         private int _id;
         private string _firstName;
         private string _lastName;
@@ -23,7 +27,6 @@ namespace Classes
             _level = level;
             _email = email;
             _password = password;
-            _repairRequest = new RepairRequest();
         }
 
         public string GetInfo()

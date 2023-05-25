@@ -9,7 +9,7 @@ namespace DataLibrary
 {
     public interface IOwnerDbController
     {
-        void RegisterOwner(CarOwner owner);
-        CarOwner GetOwner();
+        void RegisterOwner(User owner);
+        User GetOwner();
     }
 }

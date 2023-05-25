@@ -1,4 +1,5 @@
 ﻿
+using Classes;
 using Classes.Models;
 using Microsoft.Data.SqlClient;
 using System;
@@ -18,7 +19,7 @@ namespace DataLibrary
             _connectionString = DbConnectionString.Get;
         }
 
-        public void InsertDetails(MechanicDetails input)
+        public void InsertDetails(Mechanic input)
         {
             using (var connection = new SqlConnection(_connectionString))
             using (var command = connection.CreateCommand())

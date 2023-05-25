@@ -7,9 +7,9 @@ namespace MechWeb.Pages
 {
     public class AddCarModel : PageModel
     {
-        public readonly UserDbController controller = new UserDbController();
+        public readonly ICarDbController controller = new CarDbController();
         [BindProperty]
-        public AddCar Model { get; set; }
+        public CarBindModel Model { get; set; }
 
         public void OnGet()
         {

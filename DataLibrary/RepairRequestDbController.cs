@@ -1,17 +1,40 @@
 ﻿using Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Microsoft.Data.SqlClient;
 namespace DataLibrary
 {
     public class RepairRequestDbController : IRepairRequestDbController
     {
-        public List<RepairRequest> GetAllRequests()
+        string _connectionString;
+        public RepairRequestDbController()
         {
-            throw new NotImplementedException();
+            _connectionString = DbConnectionString.Get;
+        }
+        public List<RequestInfo> GetAllRequests(int servicePointId)
+        {
+            using ( SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT Id, CarId, UserId, isAccepted FROM RepairRequests WHERE ServicePointId = @id";
+                List<RequestInfo> allRequest = new List<RequestInfo>();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", servicePointId);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            allRequest.Add(new RequestInfo()
+                            {
+                                Id = reader.GetInt32(0),
+                                CarId = reader.GetInt32(1),
+                                UserId = reader.GetInt32(2),
+                                IsAccepted = reader.GetBoolean(3)
+                            });
+                        }
+                        return allRequest;
+                    }
+                }
+            }
         }
     }
 }

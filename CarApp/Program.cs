@@ -11,7 +11,7 @@ namespace CarApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new CarApp.Forms.Login_Form());
+            Application.Run(new Forms.Login_Form());
         }
     }
 }

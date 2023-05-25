@@ -10,8 +10,8 @@ namespace DataLibrary
 {
     public interface IServicePointDbController
     {
+        bool RegisterServicePoint(ServicePointBindModel model);
         List<ServicePoint> GetAllServicePoints();
-        void InsertDetails(SpDetails input);
-        bool RegisterServicePoint(string name, string adress, string phone, string email, string password);
+        void InsertDetails(ServicePointBindModel input);
     }
 }

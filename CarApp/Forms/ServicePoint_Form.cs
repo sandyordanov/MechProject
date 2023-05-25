@@ -17,13 +17,15 @@ namespace CarApp.Forms
 {
     public partial class ServicePoint_Form : Form
     {
+        int userId;
         IUserDbController _userDbcon;
         ICarDbController _carDbcon;
         IRepairRequestDbController _repairRequestDbcon;
-        public ServicePoint_Form(User user)
+        public ServicePoint_Form(int _userId)
         {
 
             InitializeComponent();
+            userId = _userId;
             _userDbcon = new UserDbController();
             _carDbcon = new CarDbController();
             _repairRequestDbcon = new RepairRequestDbController();

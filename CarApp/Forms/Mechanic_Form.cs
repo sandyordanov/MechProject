@@ -15,11 +15,11 @@ namespace CarApp.Forms
 {
     public partial class Mechanic_Form : Form
     {
-        User logged;
-        public Mechanic_Form(User currentUser)
+        int userId;
+        public Mechanic_Form(int _userId)
         {
             InitializeComponent();
-            logged = currentUser;
+            userId = _userId;
         }
 
         private void btnViewAssigned_Click(object sender, EventArgs e)

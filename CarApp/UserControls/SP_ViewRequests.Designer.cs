@@ -200,10 +200,10 @@
             // tbMake
             // 
             tbMake.Font = new Font("Times New Roman", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
-            tbMake.Location = new Point(76, 34);
+            tbMake.Location = new Point(81, 34);
             tbMake.Name = "tbMake";
             tbMake.ReadOnly = true;
-            tbMake.Size = new Size(216, 28);
+            tbMake.Size = new Size(211, 28);
             tbMake.TabIndex = 5;
             // 
             // tbModel

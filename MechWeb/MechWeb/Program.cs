@@ -1,3 +1,4 @@
+using DataLibrary;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
@@ -12,6 +13,10 @@ namespace MechWeb
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddDistributedMemoryCache();
+
+            builder.Services.AddSingleton<IUserDbController, UserDbController>();
+            builder.Services.AddSingleton<IServicePointDbController, ServicePointDbController>();
+
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10);
@@ -23,6 +28,7 @@ namespace MechWeb
                 options.LoginPath = new PathString("/Login");
                 options.AccessDeniedPath = new PathString("/Register");
             });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

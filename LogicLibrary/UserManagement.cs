@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Classes;
+using Classes.Models;
+using DataLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +11,33 @@ namespace LogicLibrary
 {
     public class UserManagement
     {
-        public bool RegisterUser(string username, string password, string email)
+        private readonly IUserDbController _dbController;
+        public UserManagement(IUserDbController userDbController)
         {
-            throw new NotImplementedException();
+            _dbController = userDbController;
+        }
+
+        public bool RegisterUser(UserBindModel model)
+        {
+            return _dbController.RegisterUser(model);
+        }
+        public int ValidateUser(Login model)
+        {
+            string username = model.Username;
+            UserBindModel user = _dbController.GetUserByUsername(username);
+            bool isMaching = BCrypt.Net.BCrypt.Verify(model.Password,user.Password);
+            if (isMaching)
+            {
+                return user.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public User GetUserById(int id)
+        {
+            return _dbController.GetUserById(id);
         }
     }
 }
