@@ -1,10 +1,10 @@
 ﻿using BCrypt.Net;
+using Classes;
 using Classes.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +49,31 @@ namespace DataLibrary
 
         public List<ServicePoint> GetAllServicePoints()
         {
-            throw new NotImplementedException();
+            List<ServicePoint> repairShops = new List<ServicePoint>();
+            using(var connection = new SqlConnection(dBConnection))
+            {
+                connection.Open ();
+                string query = "SELECT Name, Address, Email, PhoneNumber, Rating FROM ServicePoints";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ServicePoint service = new ServicePoint()
+                            {
+                                Name = reader.GetString(0),
+                                Address = reader.GetString(1),
+                                Email = reader.GetString(2),
+                                PhoneNumber = reader.GetString(3),
+                                Rating = reader.GetInt32(4),
+                            };
+                            repairShops.Add(service);
+                        }
+                    }
+                }
+            }
+            return repairShops;
         }
 
         public void InsertDetails(ServicePointBindModel input)

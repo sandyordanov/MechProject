@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\MEchanics (100 × 75 px) (1).png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\MEchanics (100 × 75 px) (1).png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\InformatikaProjects\CarApp\LogicLibrary\LogicLibrary.csproj" />
     <ProjectReference Include="..\..\DataLibrary\DataLibrary.csproj" />
   </ItemGroup>

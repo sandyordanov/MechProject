@@ -104,6 +104,33 @@ namespace DataLibrary
             return user;
         }
 
-
+        public bool UserHasCars(int userId)
+        {
+            List<int> ints = new List<int>();
+            using(var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT Id FROM Cars WHERE OwnerId = @ownerId";
+                using(var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("ownerId", userId);
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ints.Add(reader.GetInt32(0));
+                        }
+                    }
+                }
+            }
+            if(ints.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -39,5 +39,9 @@ namespace LogicLibrary
         {
             return _dbController.GetUserById(id);
         }
+        public bool HasCars(int userId) 
+        {
+            return _dbController.UserHasCars(userId);
+        }
     }
 }

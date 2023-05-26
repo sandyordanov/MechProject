@@ -13,6 +13,7 @@ namespace DataLibrary
         bool RegisterUser(UserBindModel model);
         UserBindModel GetUserByUsername(string username);
         User GetUserById(int userId);
+        bool UserHasCars(int userId);
         
     }
 }
