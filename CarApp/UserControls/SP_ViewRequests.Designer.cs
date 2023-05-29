@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBox1 = new ListBox();
+            lbRequests = new ListBox();
             groupBox1 = new GroupBox();
             label3 = new Label();
             label2 = new Label();
@@ -62,14 +62,14 @@
             groupBox4.SuspendLayout();
             SuspendLayout();
             // 
-            // listBox1
+            // lbRequests
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 20;
-            listBox1.Location = new Point(15, 37);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(399, 444);
-            listBox1.TabIndex = 0;
+            lbRequests.FormattingEnabled = true;
+            lbRequests.ItemHeight = 20;
+            lbRequests.Location = new Point(15, 37);
+            lbRequests.Name = "lbRequests";
+            lbRequests.Size = new Size(399, 444);
+            lbRequests.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -375,7 +375,7 @@
             Controls.Add(label1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(listBox1);
+            Controls.Add(lbRequests);
             Name = "SP_ViewRequests";
             Size = new Size(1010, 558);
             Load += SP_ViewRequests_Load;
@@ -391,7 +391,7 @@
 
         #endregion
 
-        private ListBox listBox1;
+        private ListBox lbRequests;
         private GroupBox groupBox1;
         private Label label3;
         private Label label2;

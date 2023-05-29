@@ -16,10 +16,9 @@ namespace CarApp.Forms
     public partial class Mechanic_Form : Form
     {
         int userId;
-        public Mechanic_Form(int _userId)
+        public Mechanic_Form()
         {
             InitializeComponent();
-            userId = _userId;
         }
 
         private void btnViewAssigned_Click(object sender, EventArgs e)

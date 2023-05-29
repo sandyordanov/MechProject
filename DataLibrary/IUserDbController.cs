@@ -11,7 +11,7 @@ namespace DataLibrary
     public interface IUserDbController
     {
         bool RegisterUser(UserBindModel model);
-        UserBindModel GetUserByUsername(string username);
+        IdAndPassword GetIdAndPasswordByUsername(string username, string userType);
         User GetUserById(int userId);
         bool UserHasCars(int userId);
         

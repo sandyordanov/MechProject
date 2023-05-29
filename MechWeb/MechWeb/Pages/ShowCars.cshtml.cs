@@ -2,20 +2,29 @@ using DataLibrary;
 using Classes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Classes;
 
 namespace MechWeb.Pages
 {
     public class ShowCarsModel : PageModel
     {
         ICarDbController dbController = new CarDbController();
-        public CarBindModel CarList = new CarBindModel();
+        public List<Car> CarList = new List<Car>();
 
         public IActionResult OnGet()
         {
-            int id = Convert.ToInt32(Request.Cookies["UserId"]);
-            var list = dbController.GetCars(id);
-            CarList.AddCars(list);
-            return Page();
+            if (Request.Cookies["userId"] != null)
+            {
+                int id = Convert.ToInt32(Request.Cookies["UserId"]);
+                CarList = dbController.GetCars(id);
+                return Page();
+            }
+            else
+            {
+                ViewData["isLogged"] = "Log in first";
+                return Page();
+            }
+            
         }
     }
 }

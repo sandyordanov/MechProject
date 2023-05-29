@@ -11,14 +11,22 @@ namespace MechWeb.Pages
         [BindProperty]
         public CarBindModel Model { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if (Request.Cookies["userId"] != null)
+            {
+                return Page();
+            }
+            else
+            {
+                return RedirectToPage("/Login");
+            }
         }
         public IActionResult OnPost()
         {
             Model.OwnerId = Convert.ToInt32(Request.Cookies["UserId"]);
             controller.CreateCar(Model);
-            return RedirectToPage("/Index");
+            return RedirectToPage("/ShowCars");
         }
     }
 }

@@ -22,9 +22,9 @@ namespace MechWeb.Pages
         [BindProperty]
         public Login LoginCredentials { get; set; }
 
-        public LoginModel(IUserDbController dbCon)
+        public LoginModel(UserManagement userMan)
         {
-            manager = new UserManagement(dbCon);
+            manager = userMan;
         }
         public IActionResult OnGet()
         {
@@ -41,7 +41,7 @@ namespace MechWeb.Pages
             {
                 return Page();
             }
-            int id = manager.ValidateUser(LoginCredentials);
+            int id = manager.ValidateUser(LoginCredentials.Username, LoginCredentials.Password, "owner");
             if (id != 0)
             {
                 Response.Cookies.Append("userId",id.ToString());

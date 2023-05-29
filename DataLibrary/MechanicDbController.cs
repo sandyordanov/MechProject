@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataLibrary
 {
-    public class MechanicDBController
+    public class MechanicDBController : IMechanicDbController
     {
         private readonly string _connectionString;
 

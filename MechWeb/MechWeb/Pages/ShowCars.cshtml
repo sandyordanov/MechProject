@@ -4,13 +4,15 @@
 
 }
 
-
+<div class="alert-danger">@ViewData["isLogged"]</div>
 <div class="col-lg-4">
     <h1 class="text-white">Cars Owned</h1>
+    <a href="/AddCar" class="btn btn-primary">Add a car</a>
     <div class="table-responsive">
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
+                    <th></th>
                     <th style="width: 25%;">Make</th>
                     <th style="width: 25%;">Model</th>
                     <th style="width: 25%;">Year</th>
@@ -18,16 +20,17 @@
                 </tr>
             </thead>
             <tbody>
-               @* @foreach (var car in Model.CarList.Cars)
+                @foreach (var car in Model.CarList)
                 {
                     <tr>
+                        <td><img src="~/car.png" style="height:50px" /></td>
                         <td style="font-size: 14px;">@car.Make</td>
                         <td style="font-size: 14px;">@car.Model</td>
                         <td style="font-size: 14px;">@car.Year</td>
                         <td style="font-size: 14px;">@car.Mileage</td>
                         <td style="font-size: 14px;"><form><button>Repair Request</button></form></td>
                     </tr>
-                }*@
+                }
             </tbody>
         </table>
     </div>

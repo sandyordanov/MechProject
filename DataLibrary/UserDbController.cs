@@ -48,13 +48,25 @@ namespace DataLibrary
             }
         }
 
-        public UserBindModel GetUserByUsername(string username)
+        public IdAndPassword GetIdAndPasswordByUsername(string username, string userType)
         {
-            UserBindModel user = null;
+            IdAndPassword result = null;
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT Id, FirstName, LastName, Email, Password FROM Users WHERE Username = @username";
+                string query = "";  
+                if (userType == "admin")
+                {
+                    query = "SELECT Id, Password FROM ServicePoints WHERE Username = @username";
+                }
+                if (userType == "mechanic")
+                {
+                    query = "SELECT Id, Password FROM Mechanics WHERE Username = @username";
+                }
+                if (userType == "owner")
+                {
+                    query = "SELECT Id, Password FROM Users WHERE Username = @username";
+                }
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
@@ -62,19 +74,16 @@ namespace DataLibrary
                     {
                         while (reader.Read())
                         {
-                            user = new UserBindModel()
+                            result = new IdAndPassword()
                             {
                                 Id = reader.GetInt32(0),
-                                FirstName = reader.GetString(1),
-                                LastName = reader.GetString(2),
-                                Email = reader.GetString(3),
-                                Password = reader.GetString(4),
+                                HashPassword = reader.GetString(1)
                             };
                         }
                     }
                 }
             }
-            return user;
+            return result;
         }
 
         public User GetUserById(int userId)
@@ -107,14 +116,14 @@ namespace DataLibrary
         public bool UserHasCars(int userId)
         {
             List<int> ints = new List<int>();
-            using(var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 string query = "SELECT Id FROM Cars WHERE OwnerId = @ownerId";
-                using(var command = new SqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("ownerId", userId);
-                    using(SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -123,7 +132,7 @@ namespace DataLibrary
                     }
                 }
             }
-            if(ints.Count > 0)
+            if (ints.Count > 0)
             {
                 return true;
             }
@@ -132,5 +141,7 @@ namespace DataLibrary
                 return false;
             }
         }
+
+
     }
 }

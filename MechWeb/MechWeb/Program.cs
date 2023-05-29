@@ -1,4 +1,5 @@
 using DataLibrary;
+using LogicLibrary;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,6 +18,7 @@ namespace MechWeb
             builder.Services.AddSingleton<IUserDbController, UserDbController>();
             builder.Services.AddSingleton<IServicePointDbController, ServicePointDbController>();
 
+            builder.Services.AddTransient<UserManagement>();
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10);

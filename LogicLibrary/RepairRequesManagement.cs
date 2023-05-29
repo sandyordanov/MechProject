@@ -11,31 +11,16 @@ namespace LogicLibrary
     public class RepairRequestManagement
     {
         private List<RequestInfo> repairRequests;
-        private readonly IUserDbController _userController;
-        private readonly ICarDbController _carController;
         private readonly IRepairRequestDbController _repairController;
 
-        public RepairRequestManagement(IUserDbController userDbCon, ICarDbController carDbCon, IRepairRequestDbController repairDbCon)
+        public RepairRequestManagement(IRepairRequestDbController repairDbCon)
         {
             repairRequests = new List<RequestInfo>();
-            _userController = userDbCon;
-            _carController = carDbCon;
             _repairController = repairDbCon;
         }
 
-        public User GetUserInfo(int userId)
+        public List<RequestInfo> GetRepairRequests(int id)
         {
-            return _userController.GetUserById(userId);
-        }
-
-        public Car GetCarInfo(int userId)
-        {
-            return _carController.GetCarById(userId);
-        }
-
-        public List<RequestInfo> GetRepairRequests()
-        {
-            int id = 0;
             repairRequests = _repairController.GetAllRequests(id);
             return repairRequests;
         }

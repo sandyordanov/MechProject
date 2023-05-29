@@ -1,26 +1,31 @@
 ﻿using Classes;
 using DataLibrary;
+using LogicLibrary;
 
 namespace CarApp.Forms
 {
     public partial class Login_Form : Form
     {
         string userType = "";
-        PasswordValidatior passwordValidator = new PasswordValidatior();
+
+        private readonly IUserDbController userDbCon = new UserDbController();
+        UserManagement manager;
         public Login_Form()
         {
             InitializeComponent();
             tbPassword.UseSystemPasswordChar = true;
+            manager = new UserManagement(userDbCon);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = tbUsername.Text;
+            string username = tbUsername.Text;
             string password = tbPassword.Text;
 
-            var userOrNull = passwordValidator.ValidateCredentials(email, password, userType);
+            var userOrNull = manager.ValidateUser(username, password, userType);
             if (userOrNull != 0)
             {
+                
                 switch (userType)
                 {
                     case "admin":
@@ -29,7 +34,7 @@ namespace CarApp.Forms
                         adminForm.Show();
                         break;
                     case "mechanic":
-                        var hrForm = new Mechanic_Form(userOrNull);
+                        var hrForm = new Mechanic_Form();
                         hrForm.Closed += (s, args) => this.Close();
                         hrForm.Show();
                         break;

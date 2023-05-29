@@ -15,11 +15,16 @@ namespace CarApp.UserControls
 {
     public partial class SP_ViewRequests : UserControl
     {
-        RepairRequestManagement requestManager;
-        public SP_ViewRequests(IUserDbController userDbController, ICarDbController carDbController, IRepairRequestDbController repairRequestDbController)
+        int userId;
+        UserManagement userManager;
+        ServicePointManagement spManager;
+        RepairRequestManagement repairManager;
+        public SP_ViewRequests(int _userId, IRepairRequestDbController repReqDbCon, IUserDbController userDbCon)
         {
             InitializeComponent();
-            requestManager = new RepairRequestManagement(userDbController, carDbController, repairRequestDbController);
+            _userId = userId;
+            repairManager = new RepairRequestManagement(repReqDbCon);
+            userManager = new UserManagement(userDbCon);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -29,7 +34,8 @@ namespace CarApp.UserControls
 
         private void SP_ViewRequests_Load(object sender, EventArgs e)
         {
-
+            lbRequests.DataSource = repairManager.GetRepairRequests(userId);
+            lbRequests.DisplayMember = "Id";
         }
     }
 }
