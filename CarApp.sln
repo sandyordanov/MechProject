@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MechWeb", "MechWeb\MechWeb\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{D6A30A22-13C2-4F32-92EB-2D5A2B3DFA50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Classes", "Classes\Classes.csproj", "{73989E16-0F46-4FD3-BDE1-9FD0DE917372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Classes", "Classes\Classes.csproj", "{73989E16-0F46-4FD3-BDE1-9FD0DE917372}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

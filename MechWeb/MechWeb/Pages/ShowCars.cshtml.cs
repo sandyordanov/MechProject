@@ -24,7 +24,11 @@ namespace MechWeb.Pages
                 ViewData["isLogged"] = "Log in first";
                 return Page();
             }
-            
+        }
+        public IActionResult OnPost()
+        {
+            var carId = RouteData.Values;
+            return RedirectToPage("/RequestRepair",carId);
         }
     }
 }

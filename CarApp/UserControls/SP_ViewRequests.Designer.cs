@@ -48,14 +48,12 @@
             btnDeny = new Button();
             btnSelect = new Button();
             groupBox4 = new GroupBox();
-            cbInspection = new CheckBox();
-            cbWax = new CheckBox();
             cbCoolant = new CheckBox();
             cbTyres = new CheckBox();
             cbLightBulb = new CheckBox();
             cbFilter = new CheckBox();
             cbOil = new CheckBox();
-            richTextBox1 = new RichTextBox();
+            tbDescription = new RichTextBox();
             label7 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -242,6 +240,7 @@
             btnDeny.TabIndex = 4;
             btnDeny.Text = "Deny";
             btnDeny.UseVisualStyleBackColor = true;
+            btnDeny.Click += btnDeny_Click;
             // 
             // btnSelect
             // 
@@ -251,11 +250,10 @@
             btnSelect.TabIndex = 5;
             btnSelect.Text = "Select";
             btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(cbInspection);
-            groupBox4.Controls.Add(cbWax);
             groupBox4.Controls.Add(cbCoolant);
             groupBox4.Controls.Add(cbTyres);
             groupBox4.Controls.Add(cbLightBulb);
@@ -268,33 +266,11 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Options selected";
             // 
-            // cbInspection
-            // 
-            cbInspection.AutoSize = true;
-            cbInspection.Enabled = false;
-            cbInspection.Location = new Point(6, 216);
-            cbInspection.Name = "cbInspection";
-            cbInspection.Size = new Size(154, 24);
-            cbInspection.TabIndex = 9;
-            cbInspection.Text = "General inspection";
-            cbInspection.UseVisualStyleBackColor = true;
-            // 
-            // cbWax
-            // 
-            cbWax.AutoSize = true;
-            cbWax.Enabled = false;
-            cbWax.Location = new Point(6, 186);
-            cbWax.Name = "cbWax";
-            cbWax.Size = new Size(59, 24);
-            cbWax.TabIndex = 8;
-            cbWax.Text = "Wax";
-            cbWax.UseVisualStyleBackColor = true;
-            // 
             // cbCoolant
             // 
             cbCoolant.AutoSize = true;
             cbCoolant.Enabled = false;
-            cbCoolant.Location = new Point(6, 156);
+            cbCoolant.Location = new Point(15, 183);
             cbCoolant.Name = "cbCoolant";
             cbCoolant.Size = new Size(135, 24);
             cbCoolant.TabIndex = 7;
@@ -305,7 +281,7 @@
             // 
             cbTyres.AutoSize = true;
             cbTyres.Enabled = false;
-            cbTyres.Location = new Point(6, 126);
+            cbTyres.Location = new Point(15, 153);
             cbTyres.Name = "cbTyres";
             cbTyres.Size = new Size(110, 24);
             cbTyres.TabIndex = 6;
@@ -316,7 +292,7 @@
             // 
             cbLightBulb.AutoSize = true;
             cbLightBulb.Enabled = false;
-            cbLightBulb.Location = new Point(6, 96);
+            cbLightBulb.Location = new Point(15, 123);
             cbLightBulb.Name = "cbLightBulb";
             cbLightBulb.Size = new Size(150, 24);
             cbLightBulb.TabIndex = 5;
@@ -327,7 +303,7 @@
             // 
             cbFilter.AutoSize = true;
             cbFilter.Enabled = false;
-            cbFilter.Location = new Point(6, 66);
+            cbFilter.Location = new Point(15, 93);
             cbFilter.Name = "cbFilter";
             cbFilter.Size = new Size(137, 24);
             cbFilter.TabIndex = 4;
@@ -338,20 +314,20 @@
             // 
             cbOil.AutoSize = true;
             cbOil.Enabled = false;
-            cbOil.Location = new Point(6, 36);
+            cbOil.Location = new Point(15, 63);
             cbOil.Name = "cbOil";
             cbOil.Size = new Size(102, 24);
             cbOil.TabIndex = 3;
             cbOil.Text = "Oil change";
             cbOil.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // tbDescription
             // 
-            richTextBox1.Location = new Point(430, 343);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(399, 196);
-            richTextBox1.TabIndex = 7;
-            richTextBox1.Text = "";
+            tbDescription.Location = new Point(430, 343);
+            tbDescription.Name = "tbDescription";
+            tbDescription.Size = new Size(399, 196);
+            tbDescription.TabIndex = 7;
+            tbDescription.Text = "";
             // 
             // label7
             // 
@@ -367,7 +343,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label7);
-            Controls.Add(richTextBox1);
+            Controls.Add(tbDescription);
             Controls.Add(groupBox4);
             Controls.Add(btnSelect);
             Controls.Add(btnDeny);
@@ -411,14 +387,12 @@
         private TextBox tbMileage;
         private Label label8;
         private GroupBox groupBox4;
-        private CheckBox cbInspection;
-        private CheckBox cbWax;
         private CheckBox cbCoolant;
         private CheckBox cbTyres;
         private CheckBox cbLightBulb;
         private CheckBox cbFilter;
         private CheckBox cbOil;
-        private RichTextBox richTextBox1;
+        private RichTextBox tbDescription;
         private Label label7;
     }
 }

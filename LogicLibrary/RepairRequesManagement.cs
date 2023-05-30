@@ -10,20 +10,41 @@ namespace LogicLibrary
 {
     public class RepairRequestManagement
     {
-        private List<RequestInfo> repairRequests;
         private readonly IRepairRequestDbController _repairController;
 
         public RepairRequestManagement(IRepairRequestDbController repairDbCon)
         {
-            repairRequests = new List<RequestInfo>();
             _repairController = repairDbCon;
         }
 
-        public List<RequestInfo> GetRepairRequests(int id)
+        public List<int> GetRepairAllRequests(int servicePointId)
         {
-            repairRequests = _repairController.GetAllRequests(id);
-            return repairRequests;
+            return _repairController.GetAllNewRepairRequests(servicePointId);
         }
-        
+
+        public RepairRequest GetRepairRequest(int requestId) 
+        {
+            return _repairController.GetRepairRequest(requestId);
+        }
+
+        public void SetRequestAsAcceptedOrDenied(bool isAccepted, int Id)
+        {
+            _repairController.SetRequestAsAcceptedOrDenied(isAccepted, Id);
+        }
+
+        public void InsertNewRequest(int carId, int userId, int servicePointId)
+        {
+            _repairController.InsertNewRequest(carId, userId, servicePointId);
+        }
+
+        public void InsertRequestDetails(RepairDetails details, int Id)
+        {
+            _repairController.InsertRequestDetails(details, Id);
+        }
+
+        public List<int> GetAllAcceptedRepairRequests(int servicePointId)
+        {
+            return _repairController.GetAllAcceptedRepairRequests(servicePointId);
+        }
     }
 }

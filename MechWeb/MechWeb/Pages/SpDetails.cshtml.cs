@@ -7,7 +7,6 @@ namespace MechWeb.Pages
 {
     public class SpDetailsModel : PageModel
     {
-        public static OwnerDbController _controller = new OwnerDbController();
         [BindProperty]
         public ServicePointBindModel Model { get; set; }
         

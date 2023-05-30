@@ -37,7 +37,7 @@ namespace CarApp.Forms
         private void btnReviewAppointments_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            var uc = new SP_ViewRequests(userId, _repairRequestDbcon, _userDbcon) { Dock = DockStyle.Fill };
+            var uc = new SP_ViewRequests(userId,_repairRequestDbcon) { Dock = DockStyle.Fill };
             panel1.Controls.Add(uc);
         }
 

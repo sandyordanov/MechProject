@@ -55,7 +55,7 @@ namespace DataLibrary
             using (var connection = new SqlConnection(dBConnection))
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "SELECT Make, Model, Year, Mileage FROM Cars WHERE ownerId = @Id";
+                command.CommandText = "SELECT Id, Make, Model, Year, Mileage FROM Cars WHERE ownerId = @Id";
                 command.Parameters.AddWithValue("@Id", userId);
 
                 connection.Open();
@@ -66,10 +66,11 @@ namespace DataLibrary
                     {
                         car = new Car
                         {
-                            Make = reader.GetString(0),
-                            Model = reader.GetString(1),
-                            Year = reader.GetInt32(2),
-                            Mileage = reader.GetInt32(3),
+                            Id = reader.GetInt32(0),
+                            Make = reader.GetString(1),
+                            Model = reader.GetString(2),
+                            Year = reader.GetInt32(3),
+                            Mileage = reader.GetInt32(4),
                         };
                         list.Add(car);
                     }

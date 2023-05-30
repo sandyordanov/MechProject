@@ -13,7 +13,7 @@ namespace DataLibrary
 {
     public class ServicePointDbController : IServicePointDbController
     {
-        string dBConnection;
+        private readonly string dBConnection;
         public ServicePointDbController()
         {
             dBConnection = DbConnectionString.Get;

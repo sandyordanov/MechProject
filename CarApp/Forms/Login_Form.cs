@@ -25,7 +25,7 @@ namespace CarApp.Forms
             var userOrNull = manager.ValidateUser(username, password, userType);
             if (userOrNull != 0)
             {
-                
+
                 switch (userType)
                 {
                     case "admin":

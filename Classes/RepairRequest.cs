@@ -21,5 +21,12 @@ namespace Classes
             User = user;
             RepairDetails = details;
         }
+
+        public RepairRequest()
+        {
+            Car = new Car();
+            User = new User();
+            RepairDetails = new RepairDetails();
+        }
     }
 }
