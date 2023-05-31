@@ -13,9 +13,10 @@ namespace MechWeb.Pages
 
         private ServicePointManagement manager;
 
-        public RegisterServicePointModel(IServicePointDbController dbCon)
+        public RegisterServicePointModel(ServicePointManagement mng)
         {
-            manager = new ServicePointManagement(dbCon);
+            manager = mng;
+            BindModel = new ServicePointBindModel();
         }
         public IActionResult OnGet()
         {

@@ -13,11 +13,12 @@ namespace MechWeb.Pages
         private UserManagement userManager;
         private ServicePointManagement servicePointManager;
         public List<ServicePoint> RepairShops { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, IUserDbController _userDbController, IServicePointDbController _spDbController)
+        public IndexModel(ILogger<IndexModel> logger, UserManagement userMng, ServicePointManagement spMng)
         {
             _logger = logger;
-            userManager = new UserManagement(_userDbController);
-            servicePointManager = new ServicePointManagement(_spDbController);
+            userManager = userMng;
+            servicePointManager = spMng;
+            RepairShops = new List<ServicePoint>();
         }
 
         public IActionResult OnGet()

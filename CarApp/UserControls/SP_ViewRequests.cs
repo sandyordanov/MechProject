@@ -1,4 +1,5 @@
-﻿using Classes;
+﻿using Azure.Core;
+using Classes;
 using DataLibrary;
 using LogicLibrary;
 using System;
@@ -30,6 +31,8 @@ namespace CarApp.UserControls
         {
             int requestId = Convert.ToInt32(lbRequests.SelectedItem);
             requestManager.SetRequestAsAcceptedOrDenied(true, requestId);
+            lbRequests.DataSource = requestManager.GetRepairAllRequests(servicePointId);
+            ClearForm();
         }
 
         private void SP_ViewRequests_Load(object sender, EventArgs e)
@@ -41,13 +44,34 @@ namespace CarApp.UserControls
         {
             int requestId = Convert.ToInt32(lbRequests.SelectedItem);
             requestManager.SetRequestAsAcceptedOrDenied(false, requestId);
+            lbRequests.DataSource = requestManager.GetRepairAllRequests(servicePointId);
+            ClearForm();
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
             int requestId = Convert.ToInt32(lbRequests.SelectedItem);
             RepairRequest request = requestManager.GetRepairRequest(requestId);
+            LoadFormData(request);
+        }
 
+        private void ClearForm()
+        {
+            tbFullName.Text = "";
+            tbEmail.Text = "";
+            tbMake.Text = "";
+            tbModel.Text = "";
+            tbYear.Text = "";
+            tbMileage.Text = "";
+            tbDescription.Text = "";
+            cbOil.Checked = false;
+            cbFilter.Checked = false;
+            cbLightBulb.Checked = false;
+            cbTyres.Checked = false;
+            cbCoolant.Checked = false;
+        }
+        private void LoadFormData(RepairRequest request)
+        {
             tbFullName.Text = $"{request.User.FirstName} {request.User.LastName}";
             tbEmail.Text = request.User.Email;
             tbMake.Text = request.Car.Make;

@@ -25,6 +25,7 @@ namespace MechWeb.Pages
         public LoginModel(UserManagement userMan)
         {
             manager = userMan;
+            LoginCredentials = new Login();
         }
         public IActionResult OnGet()
         {

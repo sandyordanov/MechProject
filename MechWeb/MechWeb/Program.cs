@@ -15,10 +15,16 @@ namespace MechWeb
             builder.Services.AddRazorPages();
             builder.Services.AddDistributedMemoryCache();
 
-            builder.Services.AddSingleton<IUserDbController, UserDbController>();
-            builder.Services.AddSingleton<IServicePointDbController, ServicePointDbController>();
+            builder.Services.AddTransient<IUserDbController, UserDbController>();
+            builder.Services.AddTransient<IServicePointDbController, ServicePointDbController>();
+            builder.Services.AddTransient<IRepairRequestDbController, RepairRequestDbController>();
+            builder.Services.AddTransient<IMechanicDbController, MechanicDBController>();
+            builder.Services.AddTransient<ICarDbController, CarDbController>();
 
             builder.Services.AddTransient<UserManagement>();
+            builder.Services.AddTransient<ServicePointManagement>();
+            builder.Services.AddTransient<RepairRequestManagement>();
+            builder.Services.AddTransient<CarManagement>();
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10);

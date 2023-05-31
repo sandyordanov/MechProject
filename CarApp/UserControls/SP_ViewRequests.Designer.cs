@@ -269,7 +269,6 @@
             // cbCoolant
             // 
             cbCoolant.AutoSize = true;
-            cbCoolant.Enabled = false;
             cbCoolant.Location = new Point(15, 183);
             cbCoolant.Name = "cbCoolant";
             cbCoolant.Size = new Size(135, 24);
@@ -280,7 +279,6 @@
             // cbTyres
             // 
             cbTyres.AutoSize = true;
-            cbTyres.Enabled = false;
             cbTyres.Location = new Point(15, 153);
             cbTyres.Name = "cbTyres";
             cbTyres.Size = new Size(110, 24);
@@ -291,7 +289,6 @@
             // cbLightBulb
             // 
             cbLightBulb.AutoSize = true;
-            cbLightBulb.Enabled = false;
             cbLightBulb.Location = new Point(15, 123);
             cbLightBulb.Name = "cbLightBulb";
             cbLightBulb.Size = new Size(150, 24);
@@ -302,7 +299,6 @@
             // cbFilter
             // 
             cbFilter.AutoSize = true;
-            cbFilter.Enabled = false;
             cbFilter.Location = new Point(15, 93);
             cbFilter.Name = "cbFilter";
             cbFilter.Size = new Size(137, 24);
@@ -313,7 +309,6 @@
             // cbOil
             // 
             cbOil.AutoSize = true;
-            cbOil.Enabled = false;
             cbOil.Location = new Point(15, 63);
             cbOil.Name = "cbOil";
             cbOil.Size = new Size(102, 24);

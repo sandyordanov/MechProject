@@ -12,9 +12,10 @@ namespace MechWeb.Pages
         public UserBindModel BindModel { get; set; }
 
         private UserManagement manager;
-        public RegisterUserModel(IUserDbController dbCon)
+        public RegisterUserModel(UserManagement mng)
         {
-            manager = new UserManagement(dbCon);
+            manager = mng;
+            BindModel = new UserBindModel();
         }
         public IActionResult OnGet()
         {

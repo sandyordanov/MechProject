@@ -23,7 +23,7 @@ namespace DataLibrary
             Car car = null;
             using (var connection = new SqlConnection(dBConnection))
             {
-                string query = "SELECT Make, Model, Year, Mileage WHERE Id = @id";
+                string query = "SELECT Make, Model, Year, Mileage FROM Cars WHERE Id = @id";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -47,7 +47,7 @@ namespace DataLibrary
             return car;
         }
 
-        public List<Car> GetCars(int userId)
+        public List<Car> GetCarsByUserId(int userId)
         {
             Car car = null;
             List<Car> list = new List<Car>();

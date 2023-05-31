@@ -2,12 +2,18 @@ using DataLibrary;
 using Classes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using LogicLibrary;
 
 namespace MechWeb.Pages
 {
     public class AddCarModel : PageModel
     {
-        public readonly ICarDbController controller = new CarDbController();
+        private readonly CarManagement manager;
+        public AddCarModel(CarManagement carMng)
+        {
+            manager = carMng;
+            Model = new CarBindModel();
+        }
         [BindProperty]
         public CarBindModel Model { get; set; }
 
@@ -25,7 +31,7 @@ namespace MechWeb.Pages
         public IActionResult OnPost()
         {
             Model.OwnerId = Convert.ToInt32(Request.Cookies["UserId"]);
-            controller.CreateCar(Model);
+            manager.CreateCar(Model);
             return RedirectToPage("/ShowCars");
         }
     }

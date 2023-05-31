@@ -11,7 +11,7 @@ namespace DataLibrary
     public interface ICarDbController
     {
         void CreateCar(CarBindModel model);
-        Car GetCarById(int userId);
-        List<Car> GetCars(int userId);
+        Car GetCarById(int carId);
+        List<Car> GetCarsByUserId(int userId);
     }
 }

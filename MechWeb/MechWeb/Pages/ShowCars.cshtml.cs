@@ -3,20 +3,26 @@ using Classes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Classes;
+using LogicLibrary;
 
 namespace MechWeb.Pages
 {
     public class ShowCarsModel : PageModel
     {
-        ICarDbController dbController = new CarDbController();
+        
         public List<Car> CarList = new List<Car>();
+        private readonly CarManagement manager;
+        public ShowCarsModel(CarManagement carMng)
+        {
+            manager = carMng;
+        }
 
         public IActionResult OnGet()
         {
             if (Request.Cookies["userId"] != null)
             {
-                int id = Convert.ToInt32(Request.Cookies["UserId"]);
-                CarList = dbController.GetCars(id);
+                int userId = Convert.ToInt32(Request.Cookies["UserId"]);
+                CarList = manager.GetCarsByUserId(userId);
                 return Page();
             }
             else
