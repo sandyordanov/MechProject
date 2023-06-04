@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Classes;
 using LogicLibrary;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MechWeb.Pages
 {
+    [Authorize(Policy = "CarOwner")]
     public class ShowCarsModel : PageModel
     {
         
@@ -19,6 +21,7 @@ namespace MechWeb.Pages
 
         public IActionResult OnGet()
         {
+            
             if (Request.Cookies["userId"] != null)
             {
                 int userId = Convert.ToInt32(Request.Cookies["UserId"]);

@@ -12,7 +12,7 @@ namespace DataLibrary
 {
     public class CarDbController : ICarDbController
     {
-        string dBConnection;
+        private readonly string dBConnection;
         public CarDbController()
         {
             dBConnection = DbConnectionString.Get;

@@ -27,29 +27,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/ShowCars">My cars</a>
                         </li>
                     </ul>
-                    @if (Context.Request.Cookies.TryGetValue("userId", out string value))
-                    {
-                        <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
-                            <li class="nav-item m-1">
-                                <form method="get" action="/Shared/Logout" class="form-inline">
-                                    <a class="btn btn-light nav-link" asp-page="/Logout">Logout</a>
-                                </form>
-                            </li>
-                        </ul>
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
-                            <li class="nav-item m-1">
-                                <a class="btn btn-primary" asp-page="/Login">Login</a>
-                            </li>
-                            <li class="nav-item m-1">
-                                <a class="btn btn-primary" asp-page="/Register">Register</a>
-                            </li>
-                        </ul>
-                    }
-
-
+                </div>
+                <div class="justify-content-end">
+                    <partial name="_LoginStatusPartial" />
                 </div>
             </div>
         </nav>

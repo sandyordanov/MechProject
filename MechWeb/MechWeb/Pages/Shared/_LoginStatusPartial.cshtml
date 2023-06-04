@@ -1,0 +1,18 @@
+﻿@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <form method="post" class="form-inline">
+        <label>@User.Identity.Name</label>
+        <button type="submit" class="btn btn-light nav-link " asp-page="/Logout">Logout</button>
+    </form>
+}
+else
+{
+    <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
+        <li class="nav-item m-1">
+            <a class="btn btn-primary" asp-page="/Login">Login</a>
+        </li>
+        <li class="nav-item m-1">
+            <a class="btn btn-primary" asp-page="/Register">Register</a>
+        </li>
+    </ul>
+}

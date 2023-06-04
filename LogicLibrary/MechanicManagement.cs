@@ -1,4 +1,5 @@
-﻿using DataLibrary;
+﻿using Classes;
+using DataLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,10 @@ namespace LogicLibrary
         public MechanicManagement(IMechanicDbController mechDbCon)
         {
             _controller = mechDbCon;
+        }
+        public void InsertDetails(Mechanic input)
+        {
+            _controller.InsertDetails(input);
         }
     }
 }

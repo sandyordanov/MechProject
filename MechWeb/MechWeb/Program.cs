@@ -2,6 +2,7 @@ using DataLibrary;
 using LogicLibrary;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using System.Net;
 
 namespace MechWeb
 {
@@ -25,16 +26,19 @@ namespace MechWeb
             builder.Services.AddTransient<ServicePointManagement>();
             builder.Services.AddTransient<RepairRequestManagement>();
             builder.Services.AddTransient<CarManagement>();
-            builder.Services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
                 options.LoginPath = new PathString("/Login");
-                options.AccessDeniedPath = new PathString("/Register");
+                options.AccessDeniedPath = new PathString("/Error");
+                options.AccessDeniedPath = new PathString("/Error");
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RepairShop",
+                    policy => policy.RequireClaim("UserType", "RepairShop"));
+                options.AddPolicy("CarOwner",
+                    policy => policy.RequireClaim("UserType", "CarOwner"));
+                
             });
 
             var app = builder.Build();
@@ -52,7 +56,6 @@ namespace MechWeb
 
             app.UseRouting();
 
-            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapRazorPages();

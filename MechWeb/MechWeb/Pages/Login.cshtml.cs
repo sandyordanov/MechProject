@@ -29,6 +29,7 @@ namespace MechWeb.Pages
         }
         public IActionResult OnGet()
         {
+
             if (Request.Cookies["UserId"] != null)
             {
                 return RedirectToPage("/Index");
@@ -36,7 +37,7 @@ namespace MechWeb.Pages
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -45,13 +46,26 @@ namespace MechWeb.Pages
             int id = manager.ValidateUser(LoginCredentials.Username, LoginCredentials.Password, "owner");
             if (id != 0)
             {
-                Response.Cookies.Append("userId",id.ToString());
+                List<Claim> claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, LoginCredentials.Username));
+                claims.Add(new Claim("id", id.ToString()));
+                claims.Add(new Claim("UserType", "CarOwner"));
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+               await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
                 return RedirectToPage("/Index");
             }
-            else
+            id = manager.ValidateUser(LoginCredentials.Username, LoginCredentials.Password, "admin");
+            if (id != 0)
             {
-                return Page();
+                List<Claim> claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, LoginCredentials.Username));
+                claims.Add(new Claim("id", id.ToString()));
+                claims.Add(new Claim("UserType", "RepairShop"));
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+                return RedirectToPage("/Index");
             }
+            return Page();
 
         }
 

@@ -1,16 +1,18 @@
 using DataLibrary;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net;
 
-namespace MechWeb.Pages.Shared
+namespace MechWeb.Pages
 {
     public class LogoutModel : PageModel
     {
-        public void OnGet()
+        public async Task<IActionResult> OnPostAsync()
         {
-            Response.Cookies.Delete("userId");
-            Response.Redirect("/Index");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Index");
         }
     }
 }
