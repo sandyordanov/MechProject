@@ -4,6 +4,7 @@ using LogicLibrary;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Security.Claims;
 
 namespace MechWeb.Pages
 {
@@ -18,20 +19,20 @@ namespace MechWeb.Pages
             _logger = logger;
             userManager = userMng;
             servicePointManager = spMng;
-            RepairShops = new List<ServicePoint>();
         }
 
         public IActionResult OnGet()
         {
-            if (Request.Cookies["userId"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                User user = userManager.GetUserById(Convert.ToInt32(Request.Cookies["userId"]));
+                User user = userManager.GetUserById(Convert.ToInt32(User.FindFirstValue("id")));
                 ViewData["greeting"] = $"{user.FirstName} {user.LastName}";
-                if (!userManager.HasCars(Convert.ToInt32(Request.Cookies["userId"])))
+                if (!userManager.HasCars(Convert.ToInt32(User.FindFirstValue("id"))))
                 {
                     ViewData["hasCars"] = "We dont see any cars in your profile. Register your car now.";
                 } 
             }
+            RepairShops = servicePointManager.GetSortedShops();
             return Page();
         }
     }

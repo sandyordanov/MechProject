@@ -28,7 +28,12 @@
                         <td style="font-size: 14px;">@car.Model</td>
                         <td style="font-size: 14px;">@car.Year</td>
                         <td style="font-size: 14px;">@car.Mileage</td>
-                        <td style="font-size: 14px;"><form method="post" asp-route-data="@car.Id"><button>Repair Request</button></form></td>
+                        <td style="font-size: 14px;">
+                            <form method="post" asp-route-data="@car.Id">
+                                <input type="hidden" name="carId" value="@car.Id" />
+                                <button>Repair Request</button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>

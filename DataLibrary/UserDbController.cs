@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using System.Collections;
 
 namespace DataLibrary
 {
@@ -21,6 +22,35 @@ namespace DataLibrary
             _connectionString = DbConnectionString.Get;
         }
 
+        public bool IsUsernameFree(string username, string userType)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "";
+                if (userType == "admin")
+                {
+                    query = "SELECT Id FROM ServicePoints WHERE Username = @username";
+                }
+                if (userType == "mechanic")
+                {
+                    query = "SELECT Id FROM Mechanics WHERE Username = @username";
+                }
+                if (userType == "owner")
+                {
+                    query = "SELECT Id FROM Users WHERE Username = @username";
+                }
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);        
+                    if (command.ExecuteScalar() != null)
+                    {
+                        return false;
+                    }
+                    else { return true; }
+                }
+            }
+        }
         public bool RegisterUser(UserBindModel model)
         {
             int success;
@@ -54,7 +84,7 @@ namespace DataLibrary
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "";  
+                string query = "";
                 if (userType == "admin")
                 {
                     query = "SELECT Id, Password FROM ServicePoints WHERE Username = @username";

@@ -30,7 +30,7 @@ namespace MechWeb.Pages
         public IActionResult OnGet()
         {
 
-            if (Request.Cookies["UserId"] != null)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToPage("/Index");
             }

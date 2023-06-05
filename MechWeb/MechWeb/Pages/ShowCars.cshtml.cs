@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Classes;
 using LogicLibrary;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MechWeb.Pages
 {
@@ -20,24 +21,14 @@ namespace MechWeb.Pages
         }
 
         public IActionResult OnGet()
-        {
-            
-            if (Request.Cookies["userId"] != null)
-            {
-                int userId = Convert.ToInt32(Request.Cookies["UserId"]);
+        {          
+                int userId = Convert.ToInt32(User.FindFirstValue("id"));
                 CarList = manager.GetCarsByUserId(userId);
                 return Page();
-            }
-            else
-            {
-                ViewData["isLogged"] = "Log in first";
-                return Page();
-            }
         }
         public IActionResult OnPost()
         {
-            var carId = RouteData.Values;
-            return RedirectToPage("/RequestRepair",carId);
+            return RedirectToPage("/RequestRepair");
         }
     }
 }

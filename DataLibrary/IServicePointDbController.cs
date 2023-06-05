@@ -10,6 +10,7 @@ namespace DataLibrary
 {
     public interface IServicePointDbController
     {
+        bool IsUsernameFree(string username, string userType);
         bool RegisterServicePoint(ServicePointBindModel model);
         List<ServicePoint> GetAllServicePoints();
         void InsertDetails(ServicePointBindModel input);

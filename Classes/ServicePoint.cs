@@ -8,15 +8,23 @@ namespace Classes
 {
     public class ServicePoint
     {
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public int Rating { get; set; }
+        private double rating;
 
         public ServicePoint()
         {
             
         }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public double RatingSum { get; set; }
+        public int Votes { get; set; }
+
+        public double GetRating() 
+        {
+            rating =Math.Round(RatingSum / Votes, 2);
+            return rating; }
     }
 }

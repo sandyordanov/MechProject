@@ -42,5 +42,9 @@ namespace LogicLibrary
         {
             return _dbController.UserHasCars(userId);
         }
+        public bool IsUsernameFree(string username, string userType)
+        {
+            return _dbController.IsUsernameFree(username, userType);
+        }
     }
 }

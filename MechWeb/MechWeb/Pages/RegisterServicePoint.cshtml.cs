@@ -16,25 +16,26 @@ namespace MechWeb.Pages
         public RegisterServicePointModel(ServicePointManagement mng)
         {
             manager = mng;
-            BindModel = new ServicePointBindModel();
         }
         public IActionResult OnGet()
         {
-            if (Request.Cookies["userId"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToPage("/Error");
+                TempData["Message"] = "You are already logged in! Log out if you want to register a new profile.";
+                return RedirectToPage("/Index");
             }
             return Page();
         }
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid && manager.RegisterServicePoint(BindModel))
+            if (ModelState.IsValid && manager.IsUsernameFree(BindModel.Username, "admin"))
             {
+                manager.RegisterServicePoint(BindModel);
                 return RedirectToPage("/Login");
             }
             else
             {
-                ViewData["error"] = "Registration failed";
+                ViewData["error"] = "Registration failed. Username is already taken.";
                 return Page();
             }
         }

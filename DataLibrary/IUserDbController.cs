@@ -10,10 +10,12 @@ namespace DataLibrary
 {
     public interface IUserDbController
     {
+        bool IsUsernameFree(string username, string userType);
         bool RegisterUser(UserBindModel model);
         IdAndPassword GetIdAndPasswordByUsername(string username, string userType);
         User GetUserById(int userId);
         bool UserHasCars(int userId);
+        
         
     }
 }

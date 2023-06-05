@@ -15,25 +15,26 @@ namespace MechWeb.Pages
         public RegisterUserModel(UserManagement mng)
         {
             manager = mng;
-            BindModel = new UserBindModel();
         }
         public IActionResult OnGet()
         {
-            if (Request.Cookies["userId"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToPage("/Error");
+                TempData["Message"] = "You are already logged in! Log out if you want to register a new profile.";
+                return RedirectToPage("/Index");
             }
             return Page();
         }
         public IActionResult OnPost()
         {
-            if (ModelState.IsValid && manager.RegisterUser(BindModel) )
+            if (ModelState.IsValid &&  manager.IsUsernameFree(BindModel.Username, "owner"))
             {
+                manager.RegisterUser(BindModel);
                 return RedirectToPage("/Login");
             }
             else
             {
-                ViewData["error"] = "Registration failed";
+                ViewData["error"] = "Registration failed. Username is already taken";
                 return Page();
             }
         }

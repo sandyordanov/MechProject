@@ -3,34 +3,29 @@ using Classes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using LogicLibrary;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MechWeb.Pages
 {
+    [Authorize(Policy = "CarOwner")]
     public class AddCarModel : PageModel
     {
         private readonly CarManagement manager;
         public AddCarModel(CarManagement carMng)
         {
             manager = carMng;
-            Model = new CarBindModel();
         }
         [BindProperty]
         public CarBindModel Model { get; set; }
 
         public IActionResult OnGet()
         {
-            if (Request.Cookies["userId"] != null)
-            {
-                return Page();
-            }
-            else
-            {
-                return RedirectToPage("/Login");
-            }
+            return Page();
         }
         public IActionResult OnPost()
         {
-            Model.OwnerId = Convert.ToInt32(Request.Cookies["UserId"]);
+            Model.OwnerId = Convert.ToInt32(User.FindFirstValue("id"));
             manager.CreateCar(Model);
             return RedirectToPage("/ShowCars");
         }
