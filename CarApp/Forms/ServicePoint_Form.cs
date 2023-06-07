@@ -58,7 +58,7 @@ namespace CarApp.Forms
         private void btnManageMechanics_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            var uc = new SP_ManageMechanics() { Dock = DockStyle.Fill };
+            var uc = new SP_ManageMechanics(userId,_mechDbController) { Dock = DockStyle.Fill };
             panel1.Controls.Add(uc);
         }
 

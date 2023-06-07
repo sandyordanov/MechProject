@@ -1,4 +1,5 @@
 ﻿using Classes;
+using Classes.Models;
 using DataLibrary;
 using LogicLibrary;
 using Microsoft.AspNetCore.Components;
@@ -14,6 +15,10 @@ namespace MechWeb.Pages
         private UserManagement userManager;
         private ServicePointManagement servicePointManager;
         public List<ServicePoint> RepairShops { get; set; }
+        //pagination
+        public int ItemsCount { get; set; } = 4;
+        public int PageIndex { get; set; }
+        //
         public IndexModel(ILogger<IndexModel> logger, UserManagement userMng, ServicePointManagement spMng)
         {
             _logger = logger;
@@ -21,7 +26,7 @@ namespace MechWeb.Pages
             servicePointManager = spMng;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int pg = 1)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -32,7 +37,7 @@ namespace MechWeb.Pages
                     ViewData["hasCars"] = "We dont see any cars in your profile. Register your car now.";
                 } 
             }
-            RepairShops = servicePointManager.GetSortedShops();
+            RepairShops = servicePointManager.GetSortedShopsByRating();
             return Page();
         }
     }

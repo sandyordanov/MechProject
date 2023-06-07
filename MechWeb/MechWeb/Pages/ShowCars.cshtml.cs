@@ -6,13 +6,13 @@ using Classes;
 using LogicLibrary;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace MechWeb.Pages
 {
     [Authorize(Policy = "CarOwner")]
     public class ShowCarsModel : PageModel
     {
-        
         public List<Car> CarList = new List<Car>();
         private readonly CarManagement manager;
         public ShowCarsModel(CarManagement carMng)
@@ -26,8 +26,9 @@ namespace MechWeb.Pages
                 CarList = manager.GetCarsByUserId(userId);
                 return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(string carId)
         {
+            HttpContext.Session.SetString("carId", carId);
             return RedirectToPage("/RequestRepair");
         }
     }

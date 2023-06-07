@@ -13,6 +13,8 @@ namespace DataLibrary
         bool IsUsernameFree(string username, string userType);
         bool RegisterServicePoint(ServicePointBindModel model);
         List<ServicePoint> GetAllServicePoints();
-        void InsertDetails(ServicePointBindModel input);
+        public List<ServicePoint> GetServicePointsPagination(int count, int index);
+        public int GetShopsCount();
+        void AssignJobToMech(int requestId, int mechId);
     }
 }

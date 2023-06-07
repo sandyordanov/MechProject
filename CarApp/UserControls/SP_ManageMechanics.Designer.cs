@@ -38,9 +38,11 @@
             label6 = new Label();
             button4 = new Button();
             groupBox1 = new GroupBox();
-            label7 = new Label();
+            textBox5 = new TextBox();
+            label9 = new Label();
             label8 = new Label();
             label4 = new Label();
+            label7 = new Label();
             label3 = new Label();
             label2 = new Label();
             textBox3 = new TextBox();
@@ -48,8 +50,7 @@
             textBox1 = new TextBox();
             btnFire = new Button();
             btnPromote = new Button();
-            label9 = new Label();
-            textBox5 = new TextBox();
+            btnAddNew = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -150,20 +151,27 @@
             groupBox1.Controls.Add(pictureBox1);
             groupBox1.Location = new Point(369, 17);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(624, 530);
+            groupBox1.Size = new Size(624, 325);
             groupBox1.TabIndex = 17;
             groupBox1.TabStop = false;
             groupBox1.Text = "Information";
             // 
-            // label7
+            // textBox5
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(405, 142);
-            label7.Name = "label7";
-            label7.Size = new Size(60, 20);
-            label7.TabIndex = 18;
-            label7.Text = "Regular";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
+            textBox5.Location = new Point(452, 210);
+            textBox5.Name = "textBox5";
+            textBox5.ReadOnly = true;
+            textBox5.Size = new Size(145, 27);
+            textBox5.TabIndex = 21;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(250, 213);
+            label9.Name = "label9";
+            label9.Size = new Size(196, 20);
+            label9.TabIndex = 18;
+            label9.Text = "Working in the company for:";
             // 
             // label8
             // 
@@ -183,6 +191,16 @@
             label4.Size = new Size(49, 20);
             label4.TabIndex = 20;
             label4.Text = "Email:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(405, 142);
+            label7.Name = "label7";
+            label7.Size = new Size(60, 20);
+            label7.TabIndex = 18;
+            label7.Text = "Regular";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -244,27 +262,21 @@
             btnPromote.Text = "Promote";
             btnPromote.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // btnAddNew
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(250, 213);
-            label9.Name = "label9";
-            label9.Size = new Size(196, 20);
-            label9.TabIndex = 18;
-            label9.Text = "Working in the company for:";
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(452, 210);
-            textBox5.Name = "textBox5";
-            textBox5.ReadOnly = true;
-            textBox5.Size = new Size(145, 27);
-            textBox5.TabIndex = 21;
+            btnAddNew.Location = new Point(375, 359);
+            btnAddNew.Name = "btnAddNew";
+            btnAddNew.Size = new Size(133, 75);
+            btnAddNew.TabIndex = 18;
+            btnAddNew.Text = "Add new mechanic";
+            btnAddNew.UseVisualStyleBackColor = true;
+            btnAddNew.Click += btnAddNew_Click;
             // 
             // SP_ManageMechanics
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnAddNew);
             Controls.Add(groupBox1);
             Controls.Add(button4);
             Controls.Add(label6);
@@ -305,5 +317,6 @@
         private TextBox textBox1;
         private Button btnFire;
         private Button btnPromote;
+        private Button btnAddNew;
     }
 }

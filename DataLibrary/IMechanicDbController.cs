@@ -9,6 +9,12 @@ namespace DataLibrary
 {
     public interface IMechanicDbController
     {
-        void InsertDetails(Mechanic input);
+        void InsertMechanic(Mechanic mechanic);
+        List<Mechanic> GetAllWorkersInAWorkshop(int spId);
+        Mechanic GetMechById(int mechId);
+        void AddMechSpeciality(int mechId, List<string> strings);
+        List<string> GetMechSpeciality(int mechId);
+        bool CheckIfUsernameIsFree(string username);
+        int GetMechanicId(string username);
     }
 }

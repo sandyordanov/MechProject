@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Classes;
+using DataLibrary;
+using LogicLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +15,21 @@ namespace CarApp.UserControls
 {
     public partial class SP_ManageMechanics : UserControl
     {
-        public SP_ManageMechanics()
+        MechanicManagement mechManager;
+        public SP_ManageMechanics(int currentUser, IMechanicDbController mechCon)
         {
             InitializeComponent();
+            mechManager = new MechanicManagement(mechCon);
+        }
+
+        private void btnAddNew_Click(object sender, EventArgs e)
+        {
+            Mechanic mech = new Mechanic()
+            {
+                Username = "George",
+                FirstName =
+            }
+            mechManager.InsertMechanic()
         }
     }
 }

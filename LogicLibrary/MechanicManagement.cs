@@ -15,9 +15,45 @@ namespace LogicLibrary
         {
             _controller = mechDbCon;
         }
-        public void InsertDetails(Mechanic input)
+        public string InsertMechanic(Mechanic mechanic, List<string> specs)
         {
-            _controller.InsertDetails(input);
+            string username = mechanic.FirstName[0] + "." + mechanic.LastName.Substring(0, 4).ToLower();
+            if (_controller.CheckIfUsernameIsFree(username))
+            {
+                mechanic.Username = username;
+            }
+            else
+            {
+                while (_controller.CheckIfUsernameIsFree(username))
+                {
+                    Random rnd = new Random();
+                    int num = rnd.Next(1, 10);
+                    username += num.ToString();
+                }
+            }
+            mechanic.Password = BCrypt.Net.BCrypt.HashPassword(mechanic.Password);
+            _controller.InsertMechanic(mechanic);
+
+            int id = _controller.GetMechanicId(username);
+            _controller.AddMechSpeciality(id, specs);
+            return username;
+        }
+        public List<Mechanic> GetAllWorkersInAWorkshop(int spId)
+        {
+            return _controller.GetAllWorkersInAWorkshop(spId);
+        }
+        public Mechanic GetMechById(int mechId)
+        {
+            return _controller.GetMechById(mechId);
+        }
+        public List<string> GetMechSpeciality(int mechId)
+        {
+            List<string> list = _controller.GetMechSpeciality(mechId);
+            for (int i = 0; i < list.Count; i++)
+            {
+                list[i] = list[i].ToLower();
+            }
+            return list;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DataLibrary
 
         public Car GetCarById(int carId)
         {
-            Car car = null;
+            Car car = new Car();
             using (var connection = new SqlConnection(dBConnection))
             {
                 string query = "SELECT Make, Model, Year, Mileage FROM Cars WHERE Id = @id";
@@ -35,6 +35,7 @@ namespace DataLibrary
                         {
                             car = new Car
                             {
+                                Id = carId,
                                 Make = reader.GetString(0),
                                 Model = reader.GetString(1),
                                 Year = reader.GetInt32(2),

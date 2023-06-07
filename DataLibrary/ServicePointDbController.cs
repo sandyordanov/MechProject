@@ -110,9 +110,68 @@ namespace DataLibrary
             return repairShops;
         }
 
-        public void InsertDetails(ServicePointBindModel input)
+        public List<ServicePoint> GetServicePointsPagination(int count, int index)
         {
-            throw new NotImplementedException();
+            ServicePoint service = null;
+            List<ServicePoint> repairShops = new List<ServicePoint>();
+            using (var connection = new SqlConnection(dBConnection))
+            {
+                connection.Open();
+                string query = "SELECT * FROM ServicePoints except SELECT top @skipped * FROM ServicePoints";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        for(int i = index; i < count; i++)
+                        {
+                            reader.Read();
+                            service = new ServicePoint()
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader.GetString(1),
+                                Address = reader.GetString(2),
+                                Email = reader.GetString(3),
+                                PhoneNumber = reader.GetString(4),
+                                RatingSum = Convert.ToDouble(reader.GetInt32(5)),
+                                Votes = reader.GetInt32(6),
+                            };
+                            repairShops.Add(service);
+                        }
+                    }
+                }
+            }
+            return repairShops;
+        }
+
+        public int GetShopsCount()
+        {
+            using (var connection = new SqlConnection(dBConnection))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(Id) FROM ServicePoints";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                       return (int)command.ExecuteScalar();
+                    }
+                }
+            }
+        }
+
+        public void AssignJobToMech(int requestId, int mechId)
+        {
+            using(SqlConnection connection = new SqlConnection(dBConnection))
+            {
+                connection.Open();
+                string query = "INSERT INTO Mechanics_RepairRequests (MechanicId, RepairRequestId) VALUES (@mechId, @requestId)";
+                using(SqlCommand command = new SqlCommand(query,connection))
+                {
+                    command.Parameters.AddWithValue("mechId", mechId);
+                    command.Parameters.AddWithValue("requestId", requestId);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

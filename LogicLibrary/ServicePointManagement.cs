@@ -17,7 +17,7 @@ namespace DataLibrary
         {
            return _servicePointDbController.RegisterServicePoint(model);
         }
-        public List<ServicePoint> GetAllServices()
+        public List<ServicePoint> GetAllRepairShops()
         {
             return _servicePointDbController.GetAllServicePoints();
         }
@@ -26,11 +26,19 @@ namespace DataLibrary
             return _servicePointDbController.IsUsernameFree(username, userType);
         }
 
-        public List<ServicePoint> GetSortedShops()
+        public List<ServicePoint> GetSortedShopsByRating()
         {
-            List<ServicePoint> sortedList = GetAllServices();
+            List<ServicePoint> sortedList = GetAllRepairShops();
             sortedList.Sort((x, y) => y.GetRating().CompareTo(x.GetRating()));
             return sortedList;
+        }
+        public List<ServicePoint> GetServicePointsPagination(int count, int index)
+        {
+            return _servicePointDbController.GetServicePointsPagination(count, index);
+        }
+        public int GetShopsCount()
+        {
+            return _servicePointDbController.GetShopsCount();
         }
     }
 }

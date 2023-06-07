@@ -38,7 +38,12 @@ namespace MechWeb
                     policy => policy.RequireClaim("UserType", "RepairShop"));
                 options.AddPolicy("CarOwner",
                     policy => policy.RequireClaim("UserType", "CarOwner"));
-                
+
+            });
+            builder.Services.AddSession(options =>
+            {
+                options.Cookie.Name = "RRSession";
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
 
             var app = builder.Build();
@@ -55,7 +60,7 @@ namespace MechWeb
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapRazorPages();

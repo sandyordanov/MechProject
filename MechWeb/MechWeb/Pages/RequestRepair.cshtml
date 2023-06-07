@@ -2,5 +2,76 @@
 @model MechWeb.Pages.RequestRepairModel
 @{
 }
-<h1>@Model.CarId</h1>
-<h6>@Model.CarIdd</h6>
+<h1 class="text-center">Repair Request</h1>
+<div class="container">
+    <div class="row w-50">
+        <div class="col">
+            <h3 class="">Selected car</h3>
+        </div>
+    </div>
+
+    <div class="row border border-4 border-warning rounded-pill bg-dark text-white d-flex align-items-center w-50">
+        <div class="col-2 me-3 ms-2">
+            <img src="~/car.png" style="height:75px" class="mx-auto" />
+        </div>
+        <div class="col-4 ">
+            <p><b>Make:</b>@Model.SelectedCar.Make</p>
+            <p><b>Model:</b>@Model.SelectedCar.Model</p>
+        </div>
+        <div class="col-4">
+            <p><b>Year:</b>@Model.SelectedCar.Year</p>
+            <p><b>Mileage:</b>@Model.SelectedCar.Mileage</p>
+        </div>
+    </div>
+    <div class="row w-50">
+            <h3 class="text-center">Repair Info</h3>
+        <div class="col">
+            <form method="post">
+                <div class="form-group">
+                    <label class="control-label" asp-for="RequestBind.Description"></label>
+                    <input type="text" asp-for="RequestBind.Description" class="form-control" />
+                    <span asp-validation-for="RequestBind.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="RequestBind.AirFilter"></label>
+                    <input type="checkbox" asp-for="RequestBind.AirFilter" class="form-control" />
+                    <span asp-validation-for="RequestBind.AirFilter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="RequestBind.AirFilter"></label>
+                    <input type="checkbox" asp-for="RequestBind.AirFilter" class="form-control" />
+                    <span asp-validation-for="RequestBind.AirFilter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="RequestBind.AirFilter"></label>
+                    <input type="checkbox" asp-for="RequestBind.AirFilter" class="form-control" />
+                    <span asp-validation-for="RequestBind.AirFilter" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="RequestBind.AirFilter"></label>
+                    <input type="checkbox" asp-for="RequestBind.AirFilter" class="form-control" />
+                    <span asp-validation-for="RequestBind.AirFilter" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+    <div class="row w-50">
+        <div class="col">
+            <h3 class="">User info</h3>
+        </div>
+    </div>
+    <div class="row border border-4 border-warning rounded-pill bg-dark text-white d-flex align-items-center w-50">
+        <div class="col-1 me-3 ms-2">
+            <img src="~/programmer.png" style="height:75px" class="mx-auto" />
+        </div>
+        <div class="col-3 ">
+            <p><b>Make:</b>@Model.SelectedCar.Make</p>
+            <p><b>Model:</b>@Model.SelectedCar.Model</p>
+        </div>
+        <div class="col-3">
+            <p><b>Year:</b>@Model.SelectedCar.Year</p>
+            <p><b>Mileage:</b>@Model.SelectedCar.Mileage</p>
+        </div>
+    </div>
+</div>
