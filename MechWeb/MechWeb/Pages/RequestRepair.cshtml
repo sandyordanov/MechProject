@@ -2,7 +2,7 @@
 @model MechWeb.Pages.RequestRepairModel
 @{
 }
-<h1 class="text-center">Repair Request</h1>
+<h1 class="text-center mb-3">Repair Request</h1>
 <div class="container">
     <div class="row">
         <div class="col-6">
@@ -26,47 +26,6 @@
                     <p><b>Mileage: </b>@Model.SelectedCar.Mileage</p>
                 </div>
             </div>
-
-            <div class="row ">
-                <h3 class="text-center mt-2">Repair Info</h3>
-                <div class="col">
-                    <form method="post">
-                        <div class="form-group m-1">
-                            <label asp-for="RequestBind.Description"></label>
-                            <textarea class="form-control" placeholder="Enter problem description" rows="3"></textarea>
-                        </div>
-                        <div class="form-check m-1">
-                            <label class="control-label" asp-for="RequestBind.OilChange"></label>
-                            <input type="checkbox" asp-for="RequestBind.OilChange" class="form-check-input" />
-                            <span asp-validation-for="RequestBind.OilChange" class="text-danger"></span>
-                        </div>
-                        <div class="form-check m-1">
-                            <label class="control-label" asp-for="RequestBind.AirFilter"></label>
-                            <input type="checkbox" asp-for="RequestBind.AirFilter" class="form-check-input" />
-                            <span asp-validation-for="RequestBind.AirFilter" class="text-danger"></span>
-                        </div>
-                        <div class="form-check m-1">
-                            <label class="control-label" asp-for="RequestBind.TyreChange"></label>
-                            <input type="checkbox" asp-for="RequestBind.TyreChange" class="form-check-input    />
-                            <span asp-validation-for="RequestBind.TyreChange" class="text-danger"></span>
-                        </div>
-                        <div class="form-check m-1">
-                            <label class="control-label" asp-for="RequestBind.CoolantChange"></label>
-                            <input type="checkbox" asp-for="RequestBind.CoolantChange" class="form-check-input    />
-                            <span asp-validation-for="RequestBind.CoolantChange" class="text-danger"></span>
-                        </div>
-                        <div class="form-check m-1">
-                            <label class="control-label" asp-for="RequestBind.LightBulb"></label>
-                            <input type="checkbox" asp-for="RequestBind.LightBulb" class="form-check-input    />
-                            <span asp-validation-for="RequestBind.LightBulb" class="text-danger"></span>
-                        </div>
-                        @if (Model.isSelected)
-                        {
-                            <button type="submit" class="btn btn-primary m-1">ConfirmDetails</button>
-                        }                      
-                    </form>
-                </div>
-            </div>
             <div class="row">
                 <div class="col">
                     <h3 class="">User info</h3>
@@ -84,33 +43,114 @@
                     <p><b>Email: </b>@Model.UserDetails.Email</p>
                 </div>
             </div>
+           
+            <h3 class="text-center mt-2">Repair Info</h3>
+            <div class="row border border-4 border-warning rounded-3 mt-2">
+                <div class="col">
+                    <form method="post" asp-page-handler="Send">
+                        <div class="form-group m-1">
+                            <textarea class="form-control" asp-for="RequestDetails.Description" placeholder="Enter problem description" rows="3"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check m-1">
+                                    <label class="control-label" asp-for="RequestDetails.OilChange"></label>
+                                    <input type="checkbox" asp-for="RequestDetails.OilChange" class="form-check-input" />
+                                    <span asp-validation-for="RequestDetails.OilChange" class="text-danger"></span>
+                                </div>
+                                <div class="form-check m-1">
+                                    <label class="control-label" asp-for="RequestDetails.AirFilter"></label>
+                                    <input type="checkbox" asp-for="RequestDetails.AirFilter" class="form-check-input" />
+                                    <span asp-validation-for="RequestDetails.AirFilter" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check m-1">
+                                    <label class="control-label" asp-for="RequestDetails.TyreChange"></label>
+                                    <input type="checkbox" asp-for="RequestDetails.TyreChange" class="form-check-input      />
+                                    <span asp-validation-for="RequestBind.TyreChange" class="text-danger"></span>
+                                </div>
+                                <div class="form-check m-1">
+                                    <label class="control-label" asp-for="RequestDetails.CoolantChange"></label>
+                                    <input type="checkbox" asp-for="RequestDetails.CoolantChange" class="form-check-input      />
+                                    <span asp-validation-for="RequestBind.CoolantChange" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check m-1">
+                                    <label class="control-label" asp-for="RequestDetails.LightBulb"></label>
+                                    <input type="checkbox" asp-for="RequestDetails.LightBulb" class="form-check-input      />
+                                    <span asp-validation-for="RequestBind.LightBulb" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col justify-content-end">
+                                @if (Model.isShopSelected)
+                                {
+                                    <button type="submit" class="btn btn-primary m-1">ConfirmDetails</button>
+                                }
+                            </div>
+                        </div>
+                      
+                    </form>
+                </div>
+            </div>
+            
         </div>
         <div class="col-6">
             <h3>Repair shops</h3>
             @foreach (var item in Model.RepairShops)
             {
-                <div class="row rounded border border-4 border-light m-2">
-                    <div class="col-3 ">
-                        <img src="~/repairservices.png" style="height:100px" class="" />
-                    </div>
-                    <div class="col-7">
-                        <h5>@item.Name</h5>
-                        <p><b>Adress: </b> @item.Address</p>
-                        <p><b>Email: </b>@item.Email</p>
-                        <p><b>Phone number: </b>@item.PhoneNumber</p>
-                    </div>
-                    <div class="col-2">
-                        <div class="row">
-                            <p><b>Rating:</b> @item.GetRating() / 5 (@item.Votes)</p>
+                @if (Model.isShopSelected && item.Id == Convert.ToInt32(HttpContext.Session.GetString("spId")))
+                {
+                    <div class="row rounded border border-4 border-warning m-2 bg-dark text-white">
+                        <div class="col-3 ">
+                            <img src="~/repairservices.png" style="height:100px" class="" />
                         </div>
-                        <div class="row">
-                            <form asp-page-handler="SelectShop" method="post">
-                                <input type="hidden" name="id" value="@item.Id" class="form-control" />
-                                <button type="submit">Select</button>
-                            </form>
+                        <div class="col-7">
+                            <h5>@item.Name</h5>
+                            <p><b>Adress: </b> @item.Address</p>
+                            <p><b>Email: </b>@item.Email</p>
+                            <p><b>Phone number: </b>@item.PhoneNumber</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <p><b>Rating:</b> @item.GetRating() / 5 (@item.Votes)</p>
+                            </div>
+                            <div class="row">
+                                <form asp-page-handler="SelectShop" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" class="form-control" />
+                                    <button type="submit" class="btn btn-warning">Select</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+               else
+                {
+                    <div class="row rounded border border-4 border-light m-2">
+                        <div class="col-3 ">
+                            <img src="~/repairservices.png" style="height:100px" class="" />
+                        </div>
+                        <div class="col-7">
+                            <h5>@item.Name</h5>
+                            <p><b>Adress: </b> @item.Address</p>
+                            <p><b>Email: </b>@item.Email</p>
+                            <p><b>Phone number: </b>@item.PhoneNumber</p>
+                        </div>
+                        <div class="col-2">
+                            <div class="row">
+                                <p><b>Rating:</b> @item.GetRating() / 5 (@item.Votes)</p>
+                            </div>
+                            <div class="row">
+                                <form asp-page-handler="SelectShop" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" class="form-control" />
+                                    <button type="submit" class="btn btn-warning">Select</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
         </div>
     </div>

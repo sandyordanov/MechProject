@@ -32,9 +32,9 @@ namespace LogicLibrary
             _repairController.SetRequestAsAcceptedOrDenied(isAccepted, Id);
         }
 
-        public void InsertNewRequest(int carId, int userId, int servicePointId)
+        public int InsertNewRequest(int carId, int userId, int servicePointId)
         {
-            _repairController.InsertNewRequest(carId, userId, servicePointId);
+            return _repairController.InsertNewRequest(carId, userId, servicePointId);
         }
 
         public void InsertRequestDetails(RepairDetails details, int Id)

@@ -16,14 +16,14 @@ namespace DataLibrary
         public List<int> GetAllNewRepairRequests(int servicePointId)
         {
             List<int> result = new List<int>();
-            using(var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 string query = "SELECT Id FROM RepairRequests WHERE ServicePointId = @spId AND IsAccepted IS NULL";
-                using(var command = new SqlCommand(query, connection))
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("spId", servicePointId);
-                    using(var reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -60,7 +60,7 @@ namespace DataLibrary
         public RepairRequest GetRepairRequest(int requestId)
         {
             RepairRequest request = new RepairRequest();
-            using ( SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 string query = "SELECT RepairRequests.Id, Cars.Make, Cars.Model, Cars.Year, Cars.Mileage, Users.FirstName, Users.LastName, Users.Email, RepairDetails.Description, RepairDetails.OilChange, RepairDetails.AirFilter, RepairDetails.LightBulb, RepairDetails.TyreChange, RepairDetails.CoolantChange FROM RepairRequests INNER Join Cars ON RepairRequests.CarId = Cars.Id INNER JOIN Users ON RepairRequests.UserId = Users.Id INNER JOIN RepairDetails ON RepairRequests.Id = RepairDetails.Id WHERE RepairRequests.Id = @requestId AND IsAccepted IS NULL";
@@ -101,7 +101,7 @@ namespace DataLibrary
                             request.User = user;
                             request.RepairDetails = details;
                             request.IsAccepted = false;
-                            
+
                         }
                     }
                 }
@@ -109,20 +109,26 @@ namespace DataLibrary
             }
         }
 
-        public void InsertNewRequest(int carId, int userId, int servicePointId)
+        public int InsertNewRequest(int carId, int userId, int servicePointId)
         {
-            using(var connection = new SqlConnection(_connectionString))
+            int id = 0;
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO RepairRequests (CarId, UserId, ServicePointId) VALUES (@carId, @userId, @servicePointId)";
-                using(var command = new  SqlCommand(query, connection))
+                string query = "INSERT INTO RepairRequests (CarId, UserId, ServicePointId) VALUES (@carId, @userId, @servicePointId) SELECT SCOPE_IDENTITY()";
+                using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("carId", carId);
                     command.Parameters.AddWithValue("userId", userId);
                     command.Parameters.AddWithValue("servicePointId", servicePointId);
-                    command.ExecuteNonQuery();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        reader.Read();
+                        id = Convert.ToInt32(reader.GetDecimal(0));
+                    }
                 }
             }
+            return id;
         }
 
         public void InsertRequestDetails(RepairDetails details, int Id)

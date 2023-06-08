@@ -14,7 +14,7 @@ namespace DataLibrary
         List<int> GetAllNewRepairRequests(int servicePointId);
         List<int> GetAllAcceptedRepairRequests(int servicePointId);
         void SetRequestAsAcceptedOrDenied(bool isAccepted, int Id);
-        void InsertNewRequest(int carId, int userId, int servicePointId);
+        int InsertNewRequest(int carId, int userId, int servicePointId);
         void InsertRequestDetails(RepairDetails details, int Id);
     }
 }

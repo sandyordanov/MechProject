@@ -13,7 +13,7 @@ namespace MechWeb.Pages
     [Authorize(Policy = "CarOwner")]
     public class RequestRepairModel : PageModel
     {
-        public bool isSelected = false;
+        public bool isShopSelected = false;
         private readonly CarManagement carManager;
         private readonly UserManagement userManager;
         private readonly RepairRequestManagement requestManager;
@@ -29,25 +29,34 @@ namespace MechWeb.Pages
         [BindProperty]
         public Car SelectedCar { get; set; }
         [BindProperty]
-        public RequestBindModel RequestBind { get; set; }
+        public RepairDetails RequestDetails { get; set; }
         public User UserDetails { get; set; }
         public List<ServicePoint> RepairShops { get; set; }
         public IActionResult OnGet()
         {
-            SelectedCar = carManager.GetCarById(Convert.ToInt32(HttpContext.Session.GetString("carId")));
-            UserDetails = userManager.GetUserById(Convert.ToInt32(User.FindFirstValue("id")));
-            RepairShops = spManager.GetAllRepairShops();
+            LoadData();
             return Page();
         }
-        public void OnPost()
+        public IActionResult OnPostSend()
         {
-
+            int carId = Convert.ToInt32(HttpContext.Session.GetString("carId"));
+            int servicePointId = Convert.ToInt32(HttpContext.Session.GetString("spId"));
+            int userId = Convert.ToInt32(User.FindFirstValue("id"));
+            int requestId =  requestManager.InsertNewRequest(carId, userId, servicePointId);
+            requestManager.InsertRequestDetails(RequestDetails, requestId);
+            TempData["request"] = "Request successfully sent!";
+            return RedirectToPage("/Index");
         }
 
         public void OnPostSelectShop(string id)
         {
             HttpContext.Session.SetString("spId", id);
-            isSelected = true;
+            isShopSelected = true;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
             SelectedCar = carManager.GetCarById(Convert.ToInt32(HttpContext.Session.GetString("carId")));
             UserDetails = userManager.GetUserById(Convert.ToInt32(User.FindFirstValue("id")));
             RepairShops = spManager.GetAllRepairShops();
