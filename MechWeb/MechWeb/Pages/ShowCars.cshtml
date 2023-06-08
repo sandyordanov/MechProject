@@ -3,9 +3,9 @@
 @{
 
 }
-<h1>Your registered cars</h1>
+<div class="alert-danger">@TempData["recFailed"]</div>
 <div class="alert-danger">@ViewData["isLogged"]</div>
-
+<h1>Your registered cars</h1>
 <div class="container">
     <div class="row">
         <div class="col-lg-5">
@@ -31,9 +31,15 @@
                                 <td style="font-size: 14px;">@car.Year</td>
                                 <td style="font-size: 14px;">@car.Mileage</td>
                                 <td style="font-size: 14px;">
-                                    <form method="post" asp-for="car.Id">
-                                        <input type="hidden" name ="carId" value="@car.Id" class="form-control" />
-                                        <button type="submit">Repair Request</button>
+                                    <form method="post" asp-page-handler="Post" asp-for="car.Id">
+                                        <input type="hidden" name="carId" value="@car.Id" class="form-control" />
+                                        <button type="submit" class="btn btn-warning p-1">Repair Request</button>
+                                    </form>
+                                </td>
+                                <td style="font-size: 14px;">
+                                    <form method="post" asp-page-handler="Delete" asp-for="car.Id">
+                                        <input type="hidden" name="carId" value="@car.Id" class="form-control" />
+                                        <button type="submit" class="btn btn-danger p-2">Delete</button>
                                     </form>
                                 </td>
                             </tr>

@@ -42,10 +42,10 @@ namespace MechWeb.Pages
             int carId = Convert.ToInt32(HttpContext.Session.GetString("carId"));
             int servicePointId = Convert.ToInt32(HttpContext.Session.GetString("spId"));
             int userId = Convert.ToInt32(User.FindFirstValue("id"));
-            int requestId =  requestManager.InsertNewRequest(carId, userId, servicePointId);
+            int requestId = requestManager.InsertNewRequest(carId, userId, servicePointId);
             requestManager.InsertRequestDetails(RequestDetails, requestId);
             TempData["request"] = "Request successfully sent!";
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Index");           
         }
 
         public void OnPostSelectShop(string id)

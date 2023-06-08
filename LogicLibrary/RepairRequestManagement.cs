@@ -34,6 +34,10 @@ namespace LogicLibrary
 
         public int InsertNewRequest(int carId, int userId, int servicePointId)
         {
+            if (_repairController.IsRequestSent(carId))
+            {
+                return 0;
+            }
             return _repairController.InsertNewRequest(carId, userId, servicePointId);
         }
 
@@ -45,6 +49,10 @@ namespace LogicLibrary
         public List<int> GetAllAcceptedRepairRequests(int servicePointId)
         {
             return _repairController.GetAllAcceptedRepairRequests(servicePointId);
+        }
+        public bool IsRequestSent(int carId)
+        {
+           return _repairController.IsRequestSent(carId);
         }
     }
 }

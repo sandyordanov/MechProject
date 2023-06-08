@@ -16,5 +16,6 @@ namespace DataLibrary
         void SetRequestAsAcceptedOrDenied(bool isAccepted, int Id);
         int InsertNewRequest(int carId, int userId, int servicePointId);
         void InsertRequestDetails(RepairDetails details, int Id);
+        bool IsRequestSent(int carId);
     }
 }

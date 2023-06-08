@@ -15,9 +15,11 @@ namespace MechWeb.Pages
     {
         public List<Car> CarList = new List<Car>();
         private readonly CarManagement manager;
-        public ShowCarsModel(CarManagement carMng)
+        private readonly RepairRequestManagement repReqManager;
+        public ShowCarsModel(CarManagement carMng, RepairRequestManagement reqManager)
         {
             manager = carMng;
+            repReqManager = reqManager;
         }
 
         public IActionResult OnGet()
@@ -28,8 +30,19 @@ namespace MechWeb.Pages
         }
         public IActionResult OnPost(string carId)
         {
-            HttpContext.Session.SetString("carId", carId);
-            return RedirectToPage("/RequestRepair");
+            if (!repReqManager.IsRequestSent(Convert.ToInt32(carId)))
+            {
+                HttpContext.Session.SetString("carId", carId);
+                return RedirectToPage("/RequestRepair");
+            }
+            TempData["recFailed"] = "Car is already registered for a repair!";
+            return OnGet();
+            
+        }
+        public IActionResult OnPostDelete(string carId)
+        {
+            manager.DeleteCar(Convert.ToInt32(carId));
+            return OnGet();
         }
     }
 }

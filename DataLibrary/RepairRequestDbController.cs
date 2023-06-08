@@ -165,5 +165,23 @@ namespace DataLibrary
                 }
             }
         }
+
+        public bool IsRequestSent(int carId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT Id From RepairRequests WHERE CarId = @carId";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@carId", carId);
+                    if (command.ExecuteScalar() == null)
+                    {
+                        return false;
+                    }
+                    else { return true; }
+                }
+            }
+        }
     }
 }
