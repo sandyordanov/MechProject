@@ -34,6 +34,7 @@ namespace Classes.Models
         public string Email { get; set; }
 
         [Required]
+        [MinLength(6, ErrorMessage = "The phone number should be at least 6 digits long.")]
         [MaxLength(50)]
         [Phone(ErrorMessage ="Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }

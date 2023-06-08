@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 
 namespace MechWeb.Pages
 {
@@ -15,10 +16,9 @@ namespace MechWeb.Pages
         private UserManagement userManager;
         private ServicePointManagement servicePointManager;
         public List<ServicePoint> RepairShops { get; set; }
-        //pagination
-        public int ItemsCount { get; set; } = 4;
-        public int PageIndex { get; set; }
-        //
+
+        public string Search { get; set; } = string.Empty;
+        public bool hasSearchResults = false;
         public IndexModel(ILogger<IndexModel> logger, UserManagement userMng, ServicePointManagement spMng)
         {
             _logger = logger;
@@ -26,7 +26,7 @@ namespace MechWeb.Pages
             servicePointManager = spMng;
         }
 
-        public IActionResult OnGet(int pg = 1)
+        public IActionResult OnGet()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -37,8 +37,27 @@ namespace MechWeb.Pages
                     ViewData["hasCars"] = "We dont see any cars in your profile. Register your car now.";
                 } 
             }
-            RepairShops = servicePointManager.GetSortedShopsByRating();
+            RepairShops = servicePointManager.SortShopsByRating(servicePointManager.GetAllRepairShops());
             return Page();
+        }
+        public IActionResult OnPostSearch(string search)
+        {
+
+            OnGet();
+            hasSearchResults = true;
+            if (search == null)
+            {
+                Search = string.Empty;
+                RepairShops = servicePointManager.SortShopsByRating(servicePointManager.GetAllRepairShops());
+                return Page();
+            }
+            else
+            {
+                Search = $"'{search}'" ;
+                RepairShops = servicePointManager.SearchForRepairShops(search);
+                return Page();
+            }
+
         }
     }
 }

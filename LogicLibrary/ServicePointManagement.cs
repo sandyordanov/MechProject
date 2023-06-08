@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Text.RegularExpressions;
 using Classes;
 using Classes.Models;
 using Microsoft.Data.SqlClient;
@@ -26,9 +27,9 @@ namespace DataLibrary
             return _servicePointDbController.IsUsernameFree(username, userType);
         }
 
-        public List<ServicePoint> GetSortedShopsByRating()
+        public List<ServicePoint> SortShopsByRating(List<ServicePoint> list)
         {
-            List<ServicePoint> sortedList = GetAllRepairShops();
+            List<ServicePoint> sortedList = list;
             sortedList.Sort((x, y) => y.GetRating().CompareTo(x.GetRating()));
             return sortedList;
         }
@@ -39,6 +40,26 @@ namespace DataLibrary
         public int GetShopsCount()
         {
             return _servicePointDbController.GetShopsCount();
+        }
+        public List<ServicePoint> SearchForRepairShops(string search)
+        {
+            List<string> keyWords = Regex.Split(search.ToLower(), @"[\s,\.]+").ToList();
+            List<ServicePoint> AllservicePoints = GetAllRepairShops();
+            List<ServicePoint> matchingShops = new List<ServicePoint>();
+            foreach (string keyWord in keyWords)
+            {
+                foreach (ServicePoint servicePoint in AllservicePoints)
+                {
+                    if (servicePoint.Name.ToLower().Contains(keyWord) || servicePoint.Address.ToLower().Contains(keyWord))
+                    {
+                        if (!matchingShops.Contains(servicePoint))
+                        {
+                            matchingShops.Add(servicePoint);
+                        }
+                    }
+                }
+            }
+            return SortShopsByRating(matchingShops);
         }
     }
 }
