@@ -30,15 +30,13 @@ namespace MechWeb
             {
                 options.LoginPath = new PathString("/Login");
                 options.AccessDeniedPath = new PathString("/Error");
-                options.AccessDeniedPath = new PathString("/Error");
             });
             builder.Services.AddAuthorization(options =>
             {
                 options.AddPolicy("RepairShop",
                     policy => policy.RequireClaim("UserType", "RepairShop"));
                 options.AddPolicy("CarOwner",
-                    policy => policy.RequireClaim("UserType", "CarOwner"));
-
+                    policy => policy.RequireClaim("UserType", "CarOwner"));               
             });
             builder.Services.AddSession(options =>
             {

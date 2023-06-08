@@ -14,17 +14,22 @@ namespace Classes.Models
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string LastName { get; set; }
+
         [Required]
         [MaxLength(50)]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Username { get; set; }
-        [Required]
-        [MaxLength(50)]
+
+        [Required(ErrorMessage = "Please enter a password.")]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "The password must be between 5 and 50 characters long")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

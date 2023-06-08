@@ -12,6 +12,11 @@ namespace MechWeb.Pages
     {
         public IActionResult OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                TempData["Message"] = "You are already logged in! Log out if you want to register a new profile.";
+                return RedirectToPage("/Index");
+            }
             return Page();
         }
 

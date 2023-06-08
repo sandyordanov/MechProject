@@ -32,6 +32,7 @@ namespace MechWeb.Pages
 
             if (User.Identity.IsAuthenticated)
             {
+                TempData["Message"] = "You are already logged in! Log out if you want to login a new profile.";
                 return RedirectToPage("/Index");
             }
             return Page();
@@ -65,6 +66,7 @@ namespace MechWeb.Pages
                 await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
                 return RedirectToPage("/Index");
             }
+            ViewData["IsLogged"] = "Username or password invalid.";
             return Page();
 
         }

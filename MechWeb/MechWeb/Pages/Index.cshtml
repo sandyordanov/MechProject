@@ -52,12 +52,26 @@
 </div>
 
 <div class="container mt-5">
-    <h3>Repair shops</h3>
-    @foreach (var item in Model.RepairShops)
+    <div class="row">
+        <div class="col">
+            <h3>Top 5 Repair Shops</h3>
+        </div>
+        <div class="col-6">
+            <form method="post" asp-page-handler="Search">
+                <div class="input-group">
+
+                    <input type="search" class="form-control rounded" placeholder="Name, town..." aria-label="Search" aria-describedby="search-addon" />
+                    <button type="button" class="btn btn-outline-primary">search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @for(int i = 0; i<5;i++)
     {
-        <div class="row rounded border border-4 border-light m-2">
+        var item = Model.RepairShops[i];
+        <div class="row rounded border border-4 border-warning m-2 bg-dark bg-gradient text-white align-items-center">
             <div class="col-3 ">
-                <img src="~/repairservices.png" class="" />
+                <img src="~/repairservices.png" class="mx-auto" />
             </div>
             <div class="col-7">
                 <h5>@item.Name</h5>
@@ -71,20 +85,4 @@
         </div>
     }
 </div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
 
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>

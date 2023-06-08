@@ -3,8 +3,10 @@
 @{
     ViewData["Title"] = "Login";
 }
-
-<partial name="_ValidationScriptsPartial" />
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+    }
+<div class="alert-danger">@ViewData["isLogged"]</div>
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-sm-12 col-md-12 col-lg-4">

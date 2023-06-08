@@ -25,6 +25,10 @@ namespace MechWeb.Pages
         }
         public IActionResult OnPost()
         {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
             Model.OwnerId = Convert.ToInt32(User.FindFirstValue("id"));
             manager.CreateCar(Model);
             return RedirectToPage("/ShowCars");

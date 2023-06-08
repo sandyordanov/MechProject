@@ -80,7 +80,7 @@ namespace DataLibrary
 
         public List<ServicePoint> GetAllServicePoints()
         {
-            ServicePoint service = null;
+            ServicePoint service = new ServicePoint();
             List<ServicePoint> repairShops = new List<ServicePoint>();
             using (var connection = new SqlConnection(dBConnection))
             {

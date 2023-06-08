@@ -32,8 +32,19 @@ namespace MechWeb.Pages
         public RepairDetails RequestDetails { get; set; }
         public User UserDetails { get; set; }
         public List<ServicePoint> RepairShops { get; set; }
+
         public IActionResult OnGet()
         {
+            if (HttpContext.Session.GetString("carId") == null)
+            {
+                return RedirectToPage("/Index");
+            }
+            Car car = carManager.GetCarById(Convert.ToInt32(HttpContext.Session.GetString("carId")));
+            if (car.Model == null)
+            {
+                TempData["Message"] = "But but but... you deleted the car";
+                return RedirectToPage("/Index");              
+            }
             LoadData();
             return Page();
         }
@@ -43,9 +54,14 @@ namespace MechWeb.Pages
             int servicePointId = Convert.ToInt32(HttpContext.Session.GetString("spId"));
             int userId = Convert.ToInt32(User.FindFirstValue("id"));
             int requestId = requestManager.InsertNewRequest(carId, userId, servicePointId);
-            requestManager.InsertRequestDetails(RequestDetails, requestId);
-            TempData["request"] = "Request successfully sent!";
-            return RedirectToPage("/Index");           
+            if (requestId != 0)
+            {
+                requestManager.InsertRequestDetails(RequestDetails, requestId);
+                TempData["request"] = "Request successfully sent!";
+                return RedirectToPage("/Index");
+            }
+            TempData["Message"] = "Request failed. Request about this car exists.";
+            return RedirectToPage("/Index");
         }
 
         public void OnPostSelectShop(string id)

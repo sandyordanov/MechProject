@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace MechWeb.Pages
 {
-    [Authorize]
+    [Authorize(Policy = "CarOwner")]
     public class ProfileModel : PageModel
     {
         [BindProperty]
@@ -26,10 +26,15 @@ namespace MechWeb.Pages
         {
 
         }
-        public void OnPostUpdate(int id)
+        public IActionResult OnPostUpdate(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             userManager.UpdateUserDetails(Convert.ToInt32(User.FindFirstValue("id")), UserDetails);
             ViewData["update"] = "Profile updated";
+            return Page();
         }
         public IActionResult OnPostDelete()
         {
