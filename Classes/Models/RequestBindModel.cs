@@ -12,6 +12,7 @@ namespace Classes.Models
         public int RepairShopId { get; set; }
         public int UserId { get; set; }
         public string Description { get; set; }
+
         public bool OilChange { get; set; }
         public bool AirFilter { get; set; }
         public bool TyreChange { get; set; }

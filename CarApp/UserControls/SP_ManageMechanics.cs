@@ -15,21 +15,32 @@ namespace CarApp.UserControls
 {
     public partial class SP_ManageMechanics : UserControl
     {
+        int spId;
         MechanicManagement mechManager;
         public SP_ManageMechanics(int currentUser, IMechanicDbController mechCon)
         {
             InitializeComponent();
             mechManager = new MechanicManagement(mechCon);
+            spId = currentUser;
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            Mechanic mech = new Mechanic()
+            string firstName = tbAddName.Text;
+            string lastName = tbAddLastName.Text;
+            string phoneNumber = tbAddPhone.Text;
+            string password = tbPassword.Text;
+            List<string> list = tbSpecialisation.Text.Split().ToList();
+            Mechanic mech = new Mechanic(firstName,lastName,phoneNumber,password, spId);
+            if(list.Count > 0)
             {
-                Username = "George",
-                FirstName =
+                mechManager.InsertMechanic(mech, list);
             }
-            mechManager.InsertMechanic()
+            else
+            {
+
+            }
+
         }
     }
 }

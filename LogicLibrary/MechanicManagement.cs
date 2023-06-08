@@ -24,11 +24,12 @@ namespace LogicLibrary
             }
             else
             {
-                while (_controller.CheckIfUsernameIsFree(username))
+                while (!_controller.CheckIfUsernameIsFree(username))
                 {
                     Random rnd = new Random();
                     int num = rnd.Next(1, 10);
                     username += num.ToString();
+                    mechanic.Username = username;
                 }
             }
             mechanic.Password = BCrypt.Net.BCrypt.HashPassword(mechanic.Password);

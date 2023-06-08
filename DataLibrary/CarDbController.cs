@@ -97,5 +97,18 @@ namespace DataLibrary
             }
         }
 
+        public void DeleteCar(int carId)
+        {
+            using (SqlConnection connection = new SqlConnection(dBConnection))
+            {
+                connection.Open();
+                string query = "DELETE FROM Cars WHERE Id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", carId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

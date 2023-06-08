@@ -30,5 +30,9 @@ namespace LogicLibrary
         {   
             return _controller.GetCarsByUserId(userId);
         }
+        public void DeleteCar(int carId)
+        {
+            _controller.DeleteCar(carId);
+        }
     }
 }

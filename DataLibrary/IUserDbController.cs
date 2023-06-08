@@ -15,7 +15,8 @@ namespace DataLibrary
         IdAndPassword GetIdAndPasswordByUsername(string username, string userType);
         User GetUserById(int userId);
         bool UserHasCars(int userId);
-        
+        void UpdateUserDetails(int userId,User model);
+        void DeleteUser(int userId);
         
     }
 }

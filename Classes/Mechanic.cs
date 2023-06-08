@@ -17,6 +17,17 @@ namespace Classes
         public int WorkplaceId { get; set; }
         public MechLevel MechLevel { get; set; }
 
-
+        public Mechanic(string firstName, string lastName, string phoneNumber, string password,int workplaceId)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Password = password;
+            WorkplaceId = workplaceId;
+        }
+        public Mechanic()
+        {
+            
+        }
     }
 }

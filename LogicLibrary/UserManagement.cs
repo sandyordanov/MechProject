@@ -46,5 +46,13 @@ namespace LogicLibrary
         {
             return _dbController.IsUsernameFree(username, userType);
         }
+        public void UpdateUserDetails(int userId, User model)
+        {
+            _dbController.UpdateUserDetails(userId, model);
+        }
+        public void DeleteUser(int userId)
+        {
+            _dbController.DeleteUser(userId);
+        }
     }
 }

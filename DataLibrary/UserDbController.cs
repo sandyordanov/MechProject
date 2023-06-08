@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
 using System.Collections;
+using System.Reflection;
 
 namespace DataLibrary
 {
@@ -42,7 +43,7 @@ namespace DataLibrary
                 }
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@username", username);        
+                    command.Parameters.AddWithValue("@username", username);
                     if (command.ExecuteScalar() != null)
                     {
                         return false;
@@ -118,7 +119,7 @@ namespace DataLibrary
 
         public User GetUserById(int userId)
         {
-            User user = null;
+            User user = new User();
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -132,6 +133,7 @@ namespace DataLibrary
                         {
                             user = new User()
                             {
+                                Id = userId,
                                 FirstName = reader.GetString(0),
                                 LastName = reader.GetString(1),
                                 Email = reader.GetString(2)
@@ -172,6 +174,35 @@ namespace DataLibrary
             }
         }
 
+        public void UpdateUserDetails(int userId,User model)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE Users SET FirstName = @firstName, LastName = @lastName, Email = @email WHERE Id = @id";
+                using(SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", userId);
+                    command.Parameters.AddWithValue("firstName", model.FirstName);
+                    command.Parameters.AddWithValue("lastName", model.LastName);
+                    command.Parameters.AddWithValue("email", model.Email);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
+        public void DeleteUser(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM Users WHERE Id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", userId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

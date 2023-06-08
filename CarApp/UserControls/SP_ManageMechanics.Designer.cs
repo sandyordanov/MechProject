@@ -51,6 +51,16 @@
             btnFire = new Button();
             btnPromote = new Button();
             btnAddNew = new Button();
+            tbAddName = new TextBox();
+            tbAddLastName = new TextBox();
+            tbAddPhone = new TextBox();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            lblPassword = new Label();
+            tbPassword = new TextBox();
+            tbSpecialisation = new RichTextBox();
+            label13 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -86,7 +96,7 @@
             // 
             pictureBox1.Location = new Point(6, 26);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(213, 252);
+            pictureBox1.Size = new Size(202, 227);
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
             // 
@@ -151,7 +161,7 @@
             groupBox1.Controls.Add(pictureBox1);
             groupBox1.Location = new Point(369, 17);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(624, 325);
+            groupBox1.Size = new Size(624, 302);
             groupBox1.TabIndex = 17;
             groupBox1.TabStop = false;
             groupBox1.Text = "Information";
@@ -246,7 +256,7 @@
             // 
             // btnFire
             // 
-            btnFire.Location = new Point(125, 284);
+            btnFire.Location = new Point(125, 259);
             btnFire.Name = "btnFire";
             btnFire.Size = new Size(94, 29);
             btnFire.TabIndex = 14;
@@ -255,7 +265,7 @@
             // 
             // btnPromote
             // 
-            btnPromote.Location = new Point(6, 284);
+            btnPromote.Location = new Point(6, 259);
             btnPromote.Name = "btnPromote";
             btnPromote.Size = new Size(94, 29);
             btnPromote.TabIndex = 13;
@@ -264,18 +274,109 @@
             // 
             // btnAddNew
             // 
-            btnAddNew.Location = new Point(375, 359);
+            btnAddNew.Location = new Point(839, 512);
             btnAddNew.Name = "btnAddNew";
-            btnAddNew.Size = new Size(133, 75);
+            btnAddNew.Size = new Size(154, 42);
             btnAddNew.TabIndex = 18;
             btnAddNew.Text = "Add new mechanic";
             btnAddNew.UseVisualStyleBackColor = true;
             btnAddNew.Click += btnAddNew_Click;
             // 
+            // tbAddName
+            // 
+            tbAddName.Location = new Point(523, 367);
+            tbAddName.Name = "tbAddName";
+            tbAddName.Size = new Size(125, 27);
+            tbAddName.TabIndex = 19;
+            // 
+            // tbAddLastName
+            // 
+            tbAddLastName.Location = new Point(523, 400);
+            tbAddLastName.Name = "tbAddLastName";
+            tbAddLastName.Size = new Size(125, 27);
+            tbAddLastName.TabIndex = 20;
+            // 
+            // tbAddPhone
+            // 
+            tbAddPhone.Location = new Point(553, 437);
+            tbAddPhone.Name = "tbAddPhone";
+            tbAddPhone.Size = new Size(125, 27);
+            tbAddPhone.TabIndex = 21;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(438, 370);
+            label10.Name = "label10";
+            label10.Size = new Size(79, 20);
+            label10.TabIndex = 22;
+            label10.Text = "FirstName:";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(439, 403);
+            label11.Name = "label11";
+            label11.Size = new Size(78, 20);
+            label11.TabIndex = 23;
+            label11.Text = "LastName:";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(439, 440);
+            label12.Name = "label12";
+            label12.Size = new Size(108, 20);
+            label12.TabIndex = 24;
+            label12.Text = "Phone number:";
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(456, 481);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(73, 20);
+            lblPassword.TabIndex = 25;
+            lblPassword.Text = "Password:";
+            // 
+            // tbPassword
+            // 
+            tbPassword.Location = new Point(553, 475);
+            tbPassword.Name = "tbPassword";
+            tbPassword.Size = new Size(125, 27);
+            tbPassword.TabIndex = 26;
+            // 
+            // tbSpecialisation
+            // 
+            tbSpecialisation.Location = new Point(724, 367);
+            tbSpecialisation.Name = "tbSpecialisation";
+            tbSpecialisation.Size = new Size(187, 120);
+            tbSpecialisation.TabIndex = 27;
+            tbSpecialisation.Text = "";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(694, 344);
+            label13.Name = "label13";
+            label13.Size = new Size(201, 20);
+            label13.TabIndex = 22;
+            label13.Text = "Add mechanic specialisation:";
+            // 
             // SP_ManageMechanics
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label13);
+            Controls.Add(tbSpecialisation);
+            Controls.Add(tbPassword);
+            Controls.Add(lblPassword);
+            Controls.Add(label12);
+            Controls.Add(label11);
+            Controls.Add(label10);
+            Controls.Add(tbAddPhone);
+            Controls.Add(tbAddLastName);
+            Controls.Add(tbAddName);
             Controls.Add(btnAddNew);
             Controls.Add(groupBox1);
             Controls.Add(button4);
@@ -318,5 +419,15 @@
         private Button btnFire;
         private Button btnPromote;
         private Button btnAddNew;
+        private TextBox tbAddName;
+        private TextBox tbAddLastName;
+        private TextBox tbAddPhone;
+        private Label label10;
+        private Label label11;
+        private Label label12;
+        private Label lblPassword;
+        private TextBox tbPassword;
+        private RichTextBox tbSpecialisation;
+        private Label label13;
     }
 }

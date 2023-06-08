@@ -13,5 +13,6 @@ namespace DataLibrary
         void CreateCar(CarBindModel model);
         Car GetCarById(int carId);
         List<Car> GetCarsByUserId(int userId);
+        void DeleteCar(int carId);
     }
 }

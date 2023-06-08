@@ -101,12 +101,13 @@ namespace DataLibrary
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO MechanicDetails (Speciality, MechanicId) VALUES (@string, @mechId)";
-                using (var command = new SqlCommand(query, connection))
+                foreach (string s in strings)
                 {
-                    foreach (string s in strings)
+                    string query = "INSERT INTO MechanicDetails (Speciality, MechanicId) VALUES (@item, @mechId)";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("string", s);
+
+                        command.Parameters.AddWithValue("item", s);
                         command.Parameters.AddWithValue("mechId", mechId);
                         command.ExecuteNonQuery();
                     }
@@ -166,9 +167,9 @@ namespace DataLibrary
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("username", username);
-                    using(var reader = command.ExecuteReader())
+                    using (var reader = command.ExecuteReader())
                     {
-                        if(reader.Read())
+                        if (reader.Read())
                         {
                             id = reader.GetInt32(0);
                         }
