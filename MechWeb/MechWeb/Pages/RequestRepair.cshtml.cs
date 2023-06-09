@@ -3,6 +3,7 @@ using Classes.Models;
 using DataLibrary;
 using LogicLibrary;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -13,11 +14,15 @@ namespace MechWeb.Pages
     [Authorize(Policy = "CarOwner")]
     public class RequestRepairModel : PageModel
     {
-        public bool isShopSelected = false;
+        public bool IsShopSelected { get; set; } = false;
         private readonly CarManagement carManager;
         private readonly UserManagement userManager;
         private readonly RepairRequestManagement requestManager;
-        private readonly ServicePointManagement spManager;
+        public readonly ServicePointManagement spManager;
+
+        public int CurrentPage { get; set; } = 1;
+        public int ItemsPerPage { get; set; } = 3;
+        public int TotalPages { get; set; }
 
         public RequestRepairModel(CarManagement _carManager, UserManagement _userManager, RepairRequestManagement _repairRequestManagement, ServicePointManagement _spMan)
         {
@@ -30,8 +35,9 @@ namespace MechWeb.Pages
         public Car SelectedCar { get; set; }
         [BindProperty]
         public RepairDetails RequestDetails { get; set; }
-        public User UserDetails { get; set; }
+        public User UserDetails { get; private set; }
         public List<ServicePoint> RepairShops { get; set; }
+        public int StarIndex { get; set; }
 
         public IActionResult OnGet()
         {
@@ -45,6 +51,18 @@ namespace MechWeb.Pages
                 TempData["Message"] = "But but but... you deleted the car";
                 return RedirectToPage("/Index");              
             }
+                      
+            TotalPages = (int)Math.Ceiling((double)spManager.GetShopsCount() / ItemsPerPage);
+            StarIndex = (CurrentPage-1) * ItemsPerPage +1;
+            LoadData();
+            return Page();
+        }
+        public IActionResult OnPostPagi(int page)
+        {
+            CurrentPage = Math.Max(CurrentPage, page);
+            HttpContext.Session.SetInt32("currentPage", CurrentPage);
+            TotalPages = (int)Math.Ceiling((double)spManager.GetShopsCount() / ItemsPerPage);
+            StarIndex = (CurrentPage - 1) * ItemsPerPage + 1;
             LoadData();
             return Page();
         }
@@ -67,15 +85,15 @@ namespace MechWeb.Pages
         public void OnPostSelectShop(string id)
         {
             HttpContext.Session.SetString("spId", id);
-            isShopSelected = true;
-            LoadData();
+            IsShopSelected = true;
+            OnPostPagi((int)HttpContext.Session.GetInt32("currentPage"));
         }
 
         private void LoadData()
         {
+            RepairShops = spManager.GetServicePointsPagination(StarIndex, ItemsPerPage);
             SelectedCar = carManager.GetCarById(Convert.ToInt32(HttpContext.Session.GetString("carId")));
             UserDetails = userManager.GetUserById(Convert.ToInt32(User.FindFirstValue("id")));
-            RepairShops = spManager.GetAllRepairShops();
         }
     }
 }

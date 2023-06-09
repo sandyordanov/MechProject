@@ -110,30 +110,34 @@ namespace DataLibrary
             return repairShops;
         }
 
-        public List<ServicePoint> GetServicePointsPagination(int count, int index)
+        public List<ServicePoint> GetServicePointsPagination(int startIndex, int itemsPerPage)
         {
-            ServicePoint service = null;
+            int endIndex = startIndex + itemsPerPage - 1;
+            ServicePoint service = new ServicePoint();
             List<ServicePoint> repairShops = new List<ServicePoint>();
             using (var connection = new SqlConnection(dBConnection))
             {
                 connection.Open();
-                string query = "SELECT * FROM ServicePoints except SELECT top @skipped * FROM ServicePoints";
+                string query = @" SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY Id) AS RowNumber FROM ServicePoints) AS sub WHERE sub.RowNumber BETWEEN @StartIndex AND @EndIndex;";
                 using (var command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@StartIndex", startIndex);
+                    command.Parameters.AddWithValue("@EndIndex", endIndex);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        for(int i = index; i < count; i++)
+                        while (reader.Read())
                         {
-                            reader.Read();
                             service = new ServicePoint()
                             {
                                 Id = reader.GetInt32(0),
-                                Name = reader.GetString(1),
-                                Address = reader.GetString(2),
-                                Email = reader.GetString(3),
-                                PhoneNumber = reader.GetString(4),
-                                RatingSum = Convert.ToDouble(reader.GetInt32(5)),
-                                Votes = reader.GetInt32(6),
+                                UserName = reader.GetString(1),
+                                Password = reader.GetString(2),
+                                Name = reader.GetString(3),                              
+                                Address = reader.GetString(4),
+                                Email = reader.GetString(5),
+                                PhoneNumber = reader.GetString(6),
+                                RatingSum = Convert.ToDouble(reader.GetInt32(7)),
+                                Votes = reader.GetInt32(8),
                             };
                             repairShops.Add(service);
                         }
@@ -151,21 +155,19 @@ namespace DataLibrary
                 string query = "SELECT COUNT(Id) FROM ServicePoints";
                 using (var command = new SqlCommand(query, connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                       return (int)command.ExecuteScalar();
-                    }
+                    return (int)command.ExecuteScalar();
                 }
+
             }
         }
 
         public void AssignJobToMech(int requestId, int mechId)
         {
-            using(SqlConnection connection = new SqlConnection(dBConnection))
+            using (SqlConnection connection = new SqlConnection(dBConnection))
             {
                 connection.Open();
                 string query = "INSERT INTO Mechanics_RepairRequests (MechanicId, RepairRequestId) VALUES (@mechId, @requestId)";
-                using(SqlCommand command = new SqlCommand(query,connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("mechId", mechId);
                     command.Parameters.AddWithValue("requestId", requestId);
