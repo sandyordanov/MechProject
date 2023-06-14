@@ -63,7 +63,7 @@ namespace DataLibrary
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT RepairRequests.Id, Cars.Make, Cars.Model, Cars.Year, Cars.Mileage, Users.FirstName, Users.LastName, Users.Email, RepairDetails.Description, RepairDetails.OilChange, RepairDetails.AirFilter, RepairDetails.LightBulb, RepairDetails.TyreChange, RepairDetails.CoolantChange FROM RepairRequests INNER Join Cars ON RepairRequests.CarId = Cars.Id INNER JOIN Users ON RepairRequests.UserId = Users.Id INNER JOIN RepairDetails ON RepairRequests.Id = RepairDetails.Id WHERE RepairRequests.Id = @requestId AND IsAccepted IS NULL";
+                string query = "SELECT RepairRequests.Id, Cars.Make, Cars.Model, Cars.Year, Cars.Mileage, Users.FirstName, Users.LastName, Users.Email, RepairDetails.Description, RepairDetails.OilChange, RepairDetails.AirFilter, RepairDetails.LightBulb, RepairDetails.TyreChange, RepairDetails.CoolantChange FROM RepairRequests INNER Join Cars ON RepairRequests.CarId = Cars.Id INNER JOIN Users ON RepairRequests.UserId = Users.Id INNER JOIN RepairDetails ON RepairRequests.Id = RepairDetails.Id WHERE RepairRequests.Id = @requestId";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("requestId", requestId);

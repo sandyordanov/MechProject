@@ -31,34 +31,28 @@ namespace CarApp.Forms
             _carDbcon = new CarDbController();
             _repairRequestDbcon = new RepairRequestDbController();
             _mechDbController = new MechanicDBController();
+            _repReqDbController = new RepairRequestDbController();
             userId = _userId;
         }
 
         private void btnReviewAppointments_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            var uc = new SP_ViewRequests(userId,_repairRequestDbcon) { Dock = DockStyle.Fill };
+            var uc = new SP_ViewRequests(userId, _repairRequestDbcon) { Dock = DockStyle.Fill };
             panel1.Controls.Add(uc);
         }
 
         private void btnAssignJobs_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            var uc = new SP_AssignJobs() { Dock = DockStyle.Fill };
-            panel1.Controls.Add(uc);
-        }
-
-        private void btnEvaluatePrice_Click(object sender, EventArgs e)
-        {
-            panel1.Controls.Clear();
-            var uc = new SP_EvaluatePrice() { Dock = DockStyle.Fill };
+            var uc = new SP_AssignJobs(_mechDbController, _repReqDbController, userId) { Dock = DockStyle.Fill };
             panel1.Controls.Add(uc);
         }
 
         private void btnManageMechanics_Click(object sender, EventArgs e)
         {
             panel1.Controls.Clear();
-            var uc = new SP_ManageMechanics(userId,_mechDbController) { Dock = DockStyle.Fill };
+            var uc = new SP_ManageMechanics(userId, _mechDbController) { Dock = DockStyle.Fill };
             panel1.Controls.Add(uc);
         }
 

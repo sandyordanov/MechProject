@@ -54,7 +54,7 @@ namespace MechWeb.Pages
             else
             {
                 Search = $"'{search}'" ;
-                RepairShops = servicePointManager.SearchForRepairShops(search);
+                RepairShops = SearchEngine.SearchForRepairShops(search,servicePointManager.GetAllRepairShops());
                 return Page();
             }
 

@@ -31,7 +31,6 @@
             panel1 = new Panel();
             btnReviewAppointments = new Button();
             btnAssignJobs = new Button();
-            btnEvaluatePrice = new Button();
             btnManageMechanics = new Button();
             btnLogOut = new Button();
             pictureBox1 = new PictureBox();
@@ -65,19 +64,9 @@
             btnAssignJobs.UseVisualStyleBackColor = true;
             btnAssignJobs.Click += btnAssignJobs_Click;
             // 
-            // btnEvaluatePrice
-            // 
-            btnEvaluatePrice.Location = new Point(0, 276);
-            btnEvaluatePrice.Name = "btnEvaluatePrice";
-            btnEvaluatePrice.Size = new Size(120, 69);
-            btnEvaluatePrice.TabIndex = 7;
-            btnEvaluatePrice.Text = "Evaluate price";
-            btnEvaluatePrice.UseVisualStyleBackColor = true;
-            btnEvaluatePrice.Click += btnEvaluatePrice_Click;
-            // 
             // btnManageMechanics
             // 
-            btnManageMechanics.Location = new Point(0, 351);
+            btnManageMechanics.Location = new Point(0, 276);
             btnManageMechanics.Name = "btnManageMechanics";
             btnManageMechanics.Size = new Size(120, 69);
             btnManageMechanics.TabIndex = 8;
@@ -113,7 +102,6 @@
             Controls.Add(pictureBox1);
             Controls.Add(btnLogOut);
             Controls.Add(btnManageMechanics);
-            Controls.Add(btnEvaluatePrice);
             Controls.Add(btnAssignJobs);
             Controls.Add(btnReviewAppointments);
             Controls.Add(panel1);
@@ -127,7 +115,6 @@
         private Panel panel1;
         private Button btnReviewAppointments;
         private Button btnAssignJobs;
-        private Button btnEvaluatePrice;
         private Button btnManageMechanics;
         private Button btnLogOut;
         private PictureBox pictureBox1;

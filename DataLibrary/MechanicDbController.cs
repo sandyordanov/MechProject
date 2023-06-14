@@ -44,7 +44,7 @@ namespace DataLibrary
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT Id, FirstName, LastName, PhoneNumber,Username, Password FROM Mechanics WHERE WorkplaceId = @spId";
+                string query = "SELECT Id, FirstName, LastName, PhoneNumber,Username, Password, MechLevel FROM Mechanics WHERE WorkplaceId = @spId";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("spId", spId);
@@ -60,6 +60,7 @@ namespace DataLibrary
                                 PhoneNumber = reader.GetString(3),
                                 Username = reader.GetString(4),
                                 Password = reader.GetString(5),
+                                MechLevel = reader.GetInt32(6),
                                 WorkplaceId = spId
                             });
                         }
@@ -144,13 +145,14 @@ namespace DataLibrary
             using (var connection = new SqlConnection(_connectionString))
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO Mechanics (FirstName, LastName, PhoneNumber, Username, Password, WorkplaceId) VALUES (@FirstName, @Lastname,@PhoneNumber, @Username, @Password, @WorkplaceId)";
+                command.CommandText = "INSERT INTO Mechanics (FirstName, LastName, PhoneNumber, Username, Password, WorkplaceId, MechLevel) VALUES (@FirstName, @Lastname,@PhoneNumber, @Username, @Password,@WorkplaceId, @mechLevel)";
                 command.Parameters.AddWithValue("FirstName", mechanic.FirstName);
                 command.Parameters.AddWithValue("LastName", mechanic.LastName);
                 command.Parameters.AddWithValue("PhoneNumber", mechanic.PhoneNumber);
                 command.Parameters.AddWithValue("Username", mechanic.Username);
                 command.Parameters.AddWithValue("Password", mechanic.Password);
                 command.Parameters.AddWithValue("WorkplaceId", mechanic.WorkplaceId);
+                command.Parameters.AddWithValue("mechLevel", mechanic.MechLevel);
                 connection.Open();
                 command.ExecuteNonQuery();
                 connection.Close();
@@ -177,6 +179,37 @@ namespace DataLibrary
                 }
             }
             return id;
+        }
+
+        public void DeleteMechanic(int mechId)
+        {
+            using(SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "DELETE FROM Mechanics WHERE Id = @id";
+                using(SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", mechId);
+                    command.ExecuteNonQuery();
+                    connection.Close() ;
+                }
+            }
+        }
+
+        public void PromoteMech(int mechId, int value)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "UPDATE Mechanics SET MechLevel = @value WHERE Id = @id";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("id", mechId);
+                    command.Parameters.AddWithValue("value", value);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
         }
     }
 }

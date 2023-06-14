@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lbCars = new ListBox();
+            lbRequests = new ListBox();
             lbMechanics = new ListBox();
             btnAssign = new Button();
             label1 = new Label();
@@ -38,16 +38,20 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            tbKeywordsRequest = new RichTextBox();
+            tbKeywordsMechanic = new RichTextBox();
+            btnFindMatch = new Button();
             SuspendLayout();
             // 
-            // lbCars
+            // lbRequests
             // 
-            lbCars.FormattingEnabled = true;
-            lbCars.ItemHeight = 20;
-            lbCars.Location = new Point(20, 142);
-            lbCars.Name = "lbCars";
-            lbCars.Size = new Size(470, 224);
-            lbCars.TabIndex = 0;
+            lbRequests.FormattingEnabled = true;
+            lbRequests.ItemHeight = 20;
+            lbRequests.Location = new Point(20, 142);
+            lbRequests.Name = "lbRequests";
+            lbRequests.Size = new Size(470, 224);
+            lbRequests.TabIndex = 0;
+            lbRequests.SelectedIndexChanged += lbRequests_SelectedIndexChanged;
             // 
             // lbMechanics
             // 
@@ -57,10 +61,11 @@
             lbMechanics.Name = "lbMechanics";
             lbMechanics.Size = new Size(470, 224);
             lbMechanics.TabIndex = 1;
+            lbMechanics.SelectedIndexChanged += lbMechanics_SelectedIndexChanged;
             // 
             // btnAssign
             // 
-            btnAssign.Location = new Point(392, 375);
+            btnAssign.Location = new Point(394, 462);
             btnAssign.Name = "btnAssign";
             btnAssign.Size = new Size(215, 52);
             btnAssign.TabIndex = 2;
@@ -133,10 +138,39 @@
             label5.TabIndex = 9;
             label5.Text = "*selected mechanic";
             // 
+            // tbKeywordsRequest
+            // 
+            tbKeywordsRequest.Location = new Point(192, 421);
+            tbKeywordsRequest.Name = "tbKeywordsRequest";
+            tbKeywordsRequest.Size = new Size(185, 104);
+            tbKeywordsRequest.TabIndex = 10;
+            tbKeywordsRequest.Text = "";
+            // 
+            // tbKeywordsMechanic
+            // 
+            tbKeywordsMechanic.Location = new Point(625, 421);
+            tbKeywordsMechanic.Name = "tbKeywordsMechanic";
+            tbKeywordsMechanic.Size = new Size(185, 104);
+            tbKeywordsMechanic.TabIndex = 11;
+            tbKeywordsMechanic.Text = "";
+            // 
+            // btnFindMatch
+            // 
+            btnFindMatch.Location = new Point(421, 386);
+            btnFindMatch.Name = "btnFindMatch";
+            btnFindMatch.Size = new Size(165, 52);
+            btnFindMatch.TabIndex = 12;
+            btnFindMatch.Text = "Find a match";
+            btnFindMatch.UseVisualStyleBackColor = true;
+            btnFindMatch.Click += btnFindMatch_Click;
+            // 
             // SP_AssignJobs
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnFindMatch);
+            Controls.Add(tbKeywordsMechanic);
+            Controls.Add(tbKeywordsRequest);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -146,16 +180,17 @@
             Controls.Add(label1);
             Controls.Add(btnAssign);
             Controls.Add(lbMechanics);
-            Controls.Add(lbCars);
+            Controls.Add(lbRequests);
             Name = "SP_AssignJobs";
             Size = new Size(1010, 558);
+            Load += SP_AssignJobs_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ListBox lbCars;
+        private ListBox lbRequests;
         private ListBox lbMechanics;
         private Button btnAssign;
         private Label label1;
@@ -165,5 +200,8 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private RichTextBox tbKeywordsRequest;
+        private RichTextBox tbKeywordsMechanic;
+        private Button btnFindMatch;
     }
 }

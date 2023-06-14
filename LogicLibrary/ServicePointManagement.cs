@@ -41,25 +41,6 @@ namespace DataLibrary
         {
             return _servicePointDbController.GetShopsCount();
         }
-        public List<ServicePoint> SearchForRepairShops(string search)
-        {
-            List<string> keyWords = Regex.Split(search.ToLower(), @"[\s,\.]+").ToList();
-            List<ServicePoint> AllservicePoints = GetAllRepairShops();
-            List<ServicePoint> matchingShops = new List<ServicePoint>();
-            foreach (string keyWord in keyWords)
-            {
-                foreach (ServicePoint servicePoint in AllservicePoints)
-                {
-                    if (servicePoint.Name.ToLower().Contains(keyWord) || servicePoint.Address.ToLower().Contains(keyWord))
-                    {
-                        if (!matchingShops.Contains(servicePoint))
-                        {
-                            matchingShops.Add(servicePoint);
-                        }
-                    }
-                }
-            }
-            return SortShopsByRating(matchingShops);
-        }
+        
     }
 }

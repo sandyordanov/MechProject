@@ -77,7 +77,7 @@
             groupBox1.Controls.Add(tbFullName);
             groupBox1.Location = new Point(430, 27);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(317, 104);
+            groupBox1.Size = new Size(376, 104);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "User Information";
@@ -108,7 +108,7 @@
             tbEmail.Location = new Point(96, 62);
             tbEmail.Name = "tbEmail";
             tbEmail.ReadOnly = true;
-            tbEmail.Size = new Size(209, 28);
+            tbEmail.Size = new Size(274, 28);
             tbEmail.TabIndex = 4;
             // 
             // tbFullName
@@ -117,7 +117,7 @@
             tbFullName.Location = new Point(96, 23);
             tbFullName.Name = "tbFullName";
             tbFullName.ReadOnly = true;
-            tbFullName.Size = new Size(209, 28);
+            tbFullName.Size = new Size(274, 28);
             tbFullName.TabIndex = 3;
             // 
             // groupBox2

@@ -16,5 +16,7 @@ namespace DataLibrary
         List<string> GetMechSpeciality(int mechId);
         bool CheckIfUsernameIsFree(string username);
         int GetMechanicId(string username);
+        void DeleteMechanic(int mechId);
+        void PromoteMech(int mechId, int value);
     }
 }
