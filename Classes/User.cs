@@ -18,5 +18,16 @@ namespace Classes
         [Required]
         [EmailAddress(ErrorMessage = "Enter a valid email adress.")]
         public string Email { get; set; }
+
+        public void UpdateDetails(string firstName, string lastName, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+        }
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

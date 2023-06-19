@@ -12,7 +12,7 @@ namespace Classes
 
         public ServicePoint()
         {
-            
+
         }
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -24,9 +24,19 @@ namespace Classes
         public double RatingSum { get; set; }
         public int Votes { get; set; }
 
-        public double GetRating() 
+        public double GetRating()
         {
-            rating =Math.Round(RatingSum / Votes, 2);
-            return rating; }
+            rating = Math.Round(RatingSum / Votes, 2);
+            return rating; 
+        }
+        public void UpdateDetails(string name, string address)
+        {
+            Name = name;
+            Address = address;
+        }
+        public override string ToString()
+        {
+            return $"{Name} {Address} - {GetRating()}";
+        }
     }
 }

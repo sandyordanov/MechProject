@@ -33,7 +33,7 @@ namespace CarApp.UserControls
             lbRequests.DataSource = repairManager.GetAllAcceptedRepairRequests(spId);
             lbRequests.DisplayMember = "Id";
             lbMechanics.DataSource = mechanicManager.GetAllWorkersInAWorkshop(spId);
-            lbMechanics.DisplayMember = "LastName";
+            lbMechanics.DisplayMember.ToString();
         }
 
         private void lbRequests_SelectedIndexChanged(object sender, EventArgs e)

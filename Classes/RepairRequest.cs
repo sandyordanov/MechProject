@@ -28,5 +28,14 @@ namespace Classes
             User = new User();
             RepairDetails = new RepairDetails();
         }
+
+        public void WriteReport(string report)
+        {
+            RepairDetails.WriteReport(report);
+        }
+        public override string ToString()
+        {
+            return $"{Id} - {Car.Make} {Car.Model}";
+        }
     }
 }

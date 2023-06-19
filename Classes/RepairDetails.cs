@@ -18,5 +18,14 @@ namespace Classes
         public bool CoolantChange { get; set; }
         public bool LightBulb { get; set; }
         public string Report { get; set; }
+
+        public void WriteReport(string report)
+        {
+            Report = report;
+        }
+        public void EditDescription(string description)
+        {
+           Description = description;
+        }
     }
 }

@@ -19,27 +19,18 @@ namespace LogicLibrary
         }
         public string InsertMechanic(Mechanic mechanic, List<string> specs)
         {
-            string username = mechanic.FirstName[0] + "." + mechanic.LastName.Substring(0, 4).ToLower();
-            if (_controller.CheckIfUsernameIsFree(username))
-            {
-                mechanic.Username = username;
-            }
-            else
-            {
-                while (!_controller.CheckIfUsernameIsFree(username))
-                {
-                    Random rnd = new Random();
-                    int num = rnd.Next(1, 10);
-                    username += num.ToString();
-                    mechanic.Username = username;
-                }
-            }
+            UsernameGenerator generator = new UsernameGenerator(_controller);
+            mechanic.Username = generator.GenerateUsername(mechanic.FirstName, mechanic.LastName);
             mechanic.Password = BCrypt.Net.BCrypt.HashPassword(mechanic.Password);
             _controller.InsertMechanic(mechanic);
 
+            InsertSkills(mechanic.Username, specs);
+            return mechanic.Username;
+        }
+        public void InsertSkills(string username, List<string> skills)
+        {
             int id = _controller.GetMechanicId(username);
-            _controller.AddMechSpeciality(id, specs);
-            return username;
+            _controller.AddMechSpeciality(id, skills);
         }
         public List<Mechanic> GetAllWorkersInAWorkshop(int spId)
         {

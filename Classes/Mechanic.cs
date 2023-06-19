@@ -17,7 +17,7 @@ namespace Classes
         public int WorkplaceId { get; set; }
         public int MechLevel { get; set; }
 
-        public List<string> Skills { get; private set; } = new List<string>();
+        public List<string> Skills { get; set; } = new List<string>();
 
     public Mechanic(string firstName, string lastName, string phoneNumber, string password, int workplaceId, int level)
         {
@@ -40,6 +40,10 @@ namespace Classes
         public void AddSkills(List<string> skillList)
         {
             Skills = skillList;
+        }
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
         }
     }
 }
